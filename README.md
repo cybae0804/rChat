@@ -1,5 +1,15 @@
 # CS100 Messaging App
 
+## Getting Started
+
+1. Clone the repository
+
+2. Add the project directory to Android Studio
+
+3. Sync Project with Gradle Files
+
+4. Emulate!
+
 ## Developers
 
 Andrade, Miguel -- mandr024@ucr.edu
