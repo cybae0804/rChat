@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1073530578501",
+    "firebase_url": "https://rchat-1000.firebaseio.com",
+    "project_id": "rchat-1000",
+    "storage_bucket": "rchat-1000.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073530578501:android:b223a554e6e98b07",
+        "android_client_info": {
+          "package_name": "com.ucr.cybae0804.rchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073530578501-o2go02ph62psu26vauv68tjvqb9esc6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ucr.cybae0804.rchat",
+            "certificate_hash": "2559bba2418ec7ce20deaec68d95e6527b2b77cc"
+          }
+        },
+        {
+          "client_id": "1073530578501-l9nt1fuck0pqsc6ouoo4fcqgr1mdkghf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYQyQ4G3miMa5zDahXHe58N8B3EUbYnDw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073530578501-l9nt1fuck0pqsc6ouoo4fcqgr1mdkghf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
