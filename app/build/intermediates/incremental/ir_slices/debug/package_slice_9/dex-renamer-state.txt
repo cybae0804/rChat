@@ -1,4 +1,0 @@
-#Tue May 01 20:44:57 PDT 2018
-base.0=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/transforms/dexMerger/debug/43
-path.0=classes.dex
-renamed.0=classes.dex

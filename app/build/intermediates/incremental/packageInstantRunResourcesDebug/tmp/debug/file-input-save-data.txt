@@ -1,7 +1,0 @@
-#Internal package file, do not edit.
-#Tue May 01 20:44:52 PDT 2018
-0.baseType=DIRECTORY
-0.base=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/assets/debug
-0.path=crashlytics-build.properties
-0.set=ASSET
-count=1
