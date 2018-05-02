@@ -1,0 +1,13 @@
+#Tue May 01 20:44:57 PDT 2018
+path.3=classes.dex
+path.2=classes.dex
+path.1=classes.dex
+path.0=classes.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+base.3=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/transforms/dexMerger/debug/47
+base.2=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/transforms/dexMerger/debug/45
+base.1=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/transforms/dexMerger/debug/48
+base.0=/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/transforms/dexMerger/debug/46

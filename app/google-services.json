@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "979068125220",
+    "firebase_url": "https://r100chat.firebaseio.com",
+    "project_id": "r100chat",
+    "storage_bucket": "r100chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979068125220:android:b5d75907de594a2d",
+        "android_client_info": {
+          "package_name": "com.google.firebase.codelab.friendlychat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979068125220-8rl1lo6qo5ll0406l0desola9roir8hn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.firebase.codelab.friendlychat",
+            "certificate_hash": "2559bba2418ec7ce20deaec68d95e6527b2b77cc"
+          }
+        },
+        {
+          "client_id": "979068125220-u8bskrtid12f2is4hmc3mqa2697c9i1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5iziIT4u9wWdI6TOIwqFQmzvu6gVvdvg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979068125220-u8bskrtid12f2is4hmc3mqa2697c9i1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

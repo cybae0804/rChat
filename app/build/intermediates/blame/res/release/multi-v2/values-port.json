@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "/home/cybae0804/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d8d69497f3fa76399b9b273a56e7e7c7/res/values-port/values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

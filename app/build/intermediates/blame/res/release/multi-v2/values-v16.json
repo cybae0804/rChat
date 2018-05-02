@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/cybae0804/AndroidStudioProjects/friendlychat-android/android-start/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "/home/cybae0804/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/abe0a1e707b911ea051ad2e7b8a179fe/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "/home/cybae0804/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d8d69497f3fa76399b9b273a56e7e7c7/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                }
+            ]
+        }
+    ]
+}
