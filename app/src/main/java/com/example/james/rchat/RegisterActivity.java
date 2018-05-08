@@ -24,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mDisplayName;
     private TextInputLayout mEmail;
     private TextInputLayout mPassword;
-    private Button mCreateBtn;
 
     private Toolbar mToolbar;
 
@@ -52,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         mDisplayName = (TextInputLayout) findViewById(R.id.reg_display_name);
         mEmail = (TextInputLayout) findViewById(R.id.reg_email);
         mPassword = (TextInputLayout) findViewById(R.id.reg_password);
-        mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
+        Button mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
 
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegProgress.dismiss();
 
                     Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
                     startActivity(mainIntent);
                     finish();
 
