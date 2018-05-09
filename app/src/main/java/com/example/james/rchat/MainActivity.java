@@ -89,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
         }
 
+        //if(item.getItemId... etc (stuff from previous tutorials
+
+        if(item.getItemId() == R.id.main_all_btn) {
+
+            Intent settingsIntent = new Intent( MainActivity.this, UsersActivity.class);
+            startActivity(settingsIntent);
+
+        }
+
+
+
         return true;
     }
 }
