@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "880768211485-v4enciass75a5cdsc4utc88fquq1d3oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "2559bba2418ec7ce20deaec68d95e6527b2b77cc"
+          }
+        },
+        {
           "client_id": "880768211485-nmp7s1e1do89jsfs0bone6kffbdj6ae8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
