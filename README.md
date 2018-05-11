@@ -56,6 +56,7 @@ Merged with jamesb branch: registration/login, Main Activity UI working
 ### 5/10/2018
 All users tab implemented. Clicking the user profile should lead to a profile activity. Profile Activity needs to be built.
 The progress includes up to the end of video 16.
+Emma-and-Jo branch finished the profile activity with Send Message UI. Skipping Friend functionality.
 
 ### 5/8/2018
 Account Settings page implemented. Change Profile Picture is being worked on. Change Status is left there for future implementation, but there's currently no plans. 
