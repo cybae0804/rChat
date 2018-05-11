@@ -1,5 +1,6 @@
 package com.example.james.rchat;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -18,6 +19,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mProfileName, mProfileStatus;//, mProfileFriendsCount;
     private Button mProfileSendMsgBtn;
 
+    private ProgressDialog mProgressDialog;
+
     private DatabaseReference mUsersDatabase;
 
     @Override
@@ -35,6 +38,12 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileSendMsgBtn = (Button) findViewById(R.id.profile_send_msg_btn);
         mProfileStatus = (TextView) findViewById(R.id.profile_status);
 
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Loading User Data");
+        mProgressDialog.setTitle("Please wait while we load user data");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.show();
+
 
         mUsersDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -46,8 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
-                
 
+                //GETTING IMAGES FROM FIREBASE/PICASSO STORAGE; NOT SET UP YET!
+                //Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+
+                mProgressDialog.dismiss();
             }
 
             @Override
