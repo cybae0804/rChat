@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -56,8 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
 
-                //GETTING IMAGES FROM FIREBASE/PICASSO STORAGE; NOT SET UP YET!
-                //Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+                Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mProfileImage);
 
                 mProgressDialog.dismiss();
             }
