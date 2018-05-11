@@ -38,6 +38,9 @@ Villacorta, Johanna -- jvill055@ucr.edu
 
 ## master branch
 
+### 5/10/2018
+Merged with dev branch: All Users page implemented. Profile UI implemented.
+
 ### 5/8/2018
 Merged with dev branch: Account Settings page implemented.
 
