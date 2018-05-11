@@ -60,6 +60,8 @@ The progress includes up to the end of video 16.
 
 Emma-and-Jo branch finished the profile activity with Send Message UI. Skipping Friend functionality.
 
+GG (Gurparam) branch implemented the change profile picture under Account Settings.
+
 ### 5/8/2018
 Account Settings page implemented. Change Profile Picture is being worked on. 
 
