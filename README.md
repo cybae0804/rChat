@@ -37,6 +37,10 @@ Villacorta, Johanna -- jvill055@ucr.edu
 
 
 ## master branch
+Tested and true code goes here.
+
+### 5/10/2018
+Merged with dev branch: Change Profile Photo, All Users tab, Profile activity implemented.
 
 ### 5/8/2018
 Merged with dev branch: Account Settings page implemented.
@@ -52,6 +56,7 @@ Merged with jamesb branch: registration/login, Main Activity UI working
 
 
 ## dev branch
+Trial by fire code goes here.
 
 ### 5/10/2018
 All users tab implemented. Clicking the user profile should lead to a profile activity. Profile Activity needs to be built.
