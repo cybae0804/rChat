@@ -39,10 +39,8 @@
 Tested and true code goes here.
 
 ### 5/10/2018
-Merged with dev branch: Change Profile Photo, All Users tab, Profile activity implemented.
-
-### 5/10/2018
 Merged with dev branch: All Users page implemented. Profile UI implemented.
+Change Profile Photo, All Users tab, Profile activity implemented.
 
 ### 5/8/2018
 Merged with dev branch: Account Settings page implemented.
@@ -59,6 +57,9 @@ Merged with jamesb branch: registration/login, Main Activity UI working
 
 ## dev branch
 Trial by fire code goes here.
+
+### 5/13/2018
+Merged with 'jamesb' branch, 1 on 1 chat function tested and implemented. 
 
 ### 5/10/2018
 All users tab implemented. Clicking the user profile should lead to a profile activity. Profile Activity needs to be built.
