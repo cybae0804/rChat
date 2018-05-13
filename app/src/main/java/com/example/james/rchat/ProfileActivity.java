@@ -1,8 +1,10 @@
 package com.example.james.rchat;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,9 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        String user_id = getIntent().getStringExtra("user_id");
+        final String profile_user_id = getIntent().getStringExtra("user_id");
 
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(profile_user_id);
 
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
         mProfileName = (TextView) findViewById(R.id.profile_displayName);
@@ -45,6 +47,16 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressDialog.setTitle("Please wait while we load user data");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
+
+        mProfileSendMsgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent chatIntent = new Intent(ProfileActivity.this,ChatActivity.class);
+                chatIntent.putExtra("user_id", profile_user_id);
+                startActivity(chatIntent);
+            }
+        });
 
 
         mUsersDatabase.addValueEventListener(new ValueEventListener() {
