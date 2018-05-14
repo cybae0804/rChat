@@ -28,7 +28,6 @@
         android:fontFamily="sans-serif"
         android:inputType="textPersonName"
         android:paddingTop="10dp"
-        android:text="Enter User ..."
         android:textAllCaps="true"
         android:textColor="#999999"
         android:textSize="20dp"
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/User_Name"
         android:layout_alignStart="@+id/User_Name"
-        android:text="Search by User Name"
+        android:hint="Search by User Name"
         android:textColor="#000080"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="59dp" />
@@ -78,7 +77,6 @@
         android:layout_toStartOf="@+id/user_search_button"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="Enter Email ..."
         android:textColor="#999999"
         app:layout_constraintEnd_toStartOf="@+id/user_email_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +96,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_list"
         android:layout_width="327dp"
-        android:layout_height="wrap_content"
+        android:layout_height="252dp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/Search_User"
         android:layout_marginTop="269dp"
