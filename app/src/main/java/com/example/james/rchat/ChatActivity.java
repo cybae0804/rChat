@@ -38,6 +38,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private final List<Messages> messagesList = new ArrayList<>();
     private MessageAdapter mAdapter;
+    private RecyclerView mMessagesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +78,8 @@ public class ChatActivity extends AppCompatActivity {
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
         mAdapter = new MessageAdapter(messagesList);
-
-        final RecyclerView mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
-        LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
+        mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+        final LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
 
         mMessagesList.setHasFixedSize(true);
         mMessagesList.setLayoutManager(mLinearLayout);
@@ -97,6 +97,21 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount){
+                super.onItemRangeInserted(positionStart, itemCount);
+                int count = mAdapter.getItemCount();
+                int lastVisiblePosition = mLinearLayout.findLastCompletelyVisibleItemPosition();
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (count - 1) &&
+                                lastVisiblePosition == (positionStart - 1))){
+                    mMessagesList.smoothScrollToPosition(positionStart);
+                }
+            }
+        });
+
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
@@ -145,7 +160,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 sendMessage();
-
+                mMessagesList.smoothScrollToPosition(mMessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
             }
         });
 
@@ -161,6 +176,7 @@ public class ChatActivity extends AppCompatActivity {
                 Messages message = dataSnapshot.getValue(Messages.class);
 
                 messagesList.add(message);
+
                 mAdapter.notifyDataSetChanged();
 
             }
@@ -230,6 +246,5 @@ public class ChatActivity extends AppCompatActivity {
 
 
         }
-
     }
 }
