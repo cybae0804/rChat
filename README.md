@@ -58,6 +58,16 @@ Merged with jamesb branch: registration/login, Main Activity UI working
 ## dev branch
 Trial by fire code goes here.
 
+### 5/14/2018
+Merged with 'emma' branch.
+
+- UI updated to a darker color.
+
+- Chat RecyclerView now adapts to different screen sizes.
+
+- Chat RecyclerView now adapts to keyboard popups by resizing and scrolling to the bottom.
+
+- Sending messages now scroll to the bottom.
 ### 5/13/2018
 Merged with 'jamesb' branch, 1 on 1 chat function tested and implemented. 
 
