@@ -1,26 +1,9 @@
 package com.example.james.rchat;
 
 public class UsersSearch {
-    public String name;
-    public String status;
-    public String image;
+    public String  name, status;
 
-    public UsersSearch() {
-    }
-
-    public UsersSearch(String name, String status, String image) {
-        this.name = name;
-        this.image = image;
-        this.status = status;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image){
-        this.image = image;
-    }
+    public UsersSearch(){}
 
     public String getName() {
         return name;
@@ -37,5 +20,8 @@ public class UsersSearch {
     public void setStatus(String status) {
         this.status = status;
     }
+    public UsersSearch(String name, String status) {
+        this.name = name;
+        this.status = status;
+    }
 }
-
