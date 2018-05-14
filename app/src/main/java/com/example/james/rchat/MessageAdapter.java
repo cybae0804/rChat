@@ -62,9 +62,9 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
         String from_user = c.getFrom();
 
         if(from_user.equals(current_user_id)){
-
-            viewHolder.messageText.setBackgroundColor(Color.WHITE);
-            viewHolder.messageText.setTextColor(Color.BLACK);
+            viewHolder.messageText.setBackgroundResource(R.drawable.user_message_text_background);
+            //viewHolder.messageText.setBackgroundColor(Color.WHITE);
+            viewHolder.messageText.setTextColor(Color.WHITE);
 
         }else{
 
