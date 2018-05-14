@@ -86,7 +86,7 @@ public class ChatActivity extends AppCompatActivity {
         mMessagesList.addOnLayoutChangeListener(new View.OnLayoutChangeListener(){
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom){
-                if (bottom < oldBottom){
+                if (bottom < oldBottom && ((mMessagesList.getAdapter().getItemCount() - 1) > 3)){
                     mMessagesList.postDelayed(new Runnable(){
                         @Override
                         public void run() {
