@@ -10,6 +10,7 @@ public class StartActivity extends AppCompatActivity {
 
     private Button mRegBtn;
     private Button mLoginBtn;
+    private Button mActTwoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +19,20 @@ public class StartActivity extends AppCompatActivity {
 
         mRegBtn = (Button) findViewById(R.id.start_reg_btn);
         mLoginBtn = (Button) findViewById(R.id.start_login_btn);
+        mActTwoBtn  = (Button) findViewById(R.id.act_two_button);
 
-        mRegBtn.setOnClickListener(new View.OnClickListener(){
+        mActTwoBtn.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      openSearch();
+                  }
+              });
+
+        mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
-                Intent reg_intent = new Intent(StartActivity.this,RegisterActivity.class);
+                Intent reg_intent = new Intent(StartActivity.this, RegisterActivity.class);
                 startActivity(reg_intent);
 
             }
@@ -41,5 +50,10 @@ public class StartActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void openSearch(){
+        Intent search_intent = new Intent(this, Search.class);
+        startActivity(search_intent);
     }
 }
