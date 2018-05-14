@@ -78,12 +78,25 @@ public class ChatActivity extends AppCompatActivity {
 
         mAdapter = new MessageAdapter(messagesList);
 
-        RecyclerView mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+        final RecyclerView mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
         LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
 
         mMessagesList.setHasFixedSize(true);
         mMessagesList.setLayoutManager(mLinearLayout);
-
+        mMessagesList.addOnLayoutChangeListener(new View.OnLayoutChangeListener(){
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom){
+                if (bottom < oldBottom){
+                    mMessagesList.postDelayed(new Runnable(){
+                        @Override
+                        public void run() {
+                            mMessagesList.smoothScrollToPosition(
+                                    mMessagesList.getAdapter().getItemCount() - 1);
+                        }
+                    }, 100);
+                }
+            }
+        });
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
