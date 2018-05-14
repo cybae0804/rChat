@@ -1,5 +1,6 @@
 package com.example.james.rchat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersActivity extends AppCompatActivity {
 
@@ -72,6 +76,7 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(UserViewHolder userViewHolder, int position, Users model) {
                 userViewHolder.setName(model.name);
+                userViewHolder.setUserImage(model.image, getApplicationContext());
                 final String user_id = getRef(position).getKey();
                 userViewHolder.mView.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -95,9 +100,16 @@ public class UsersActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
         }
+
         public void setName(String name){
             TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
             userNameView.setText(name);
+        }
+
+        public void setUserImage(String imageurl, Context ctx){
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
+            Picasso.get().load(imageurl).placeholder(R.drawable.default_pic).into(userImageView);
+
         }
     }
 }

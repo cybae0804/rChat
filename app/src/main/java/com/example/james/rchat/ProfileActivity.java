@@ -1,8 +1,10 @@
 package com.example.james.rchat;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -28,9 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        String user_id = getIntent().getStringExtra("user_id");
+        final String profile_user_id = getIntent().getStringExtra("user_id");
 
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(profile_user_id);
 
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
         mProfileName = (TextView) findViewById(R.id.profile_displayName);
@@ -44,6 +48,16 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
+        mProfileSendMsgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent chatIntent = new Intent(ProfileActivity.this,ChatActivity.class);
+                chatIntent.putExtra("user_id", profile_user_id);
+                startActivity(chatIntent);
+            }
+        });
+
 
         mUsersDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,8 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
                 mProfileName.setText(display_name);
                 mProfileStatus.setText(status);
 
-                //GETTING IMAGES FROM FIREBASE/PICASSO STORAGE; NOT SET UP YET!
-                //Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+                Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mProfileImage);
 
                 mProgressDialog.dismiss();
             }
