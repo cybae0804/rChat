@@ -19,14 +19,6 @@ public class StartActivity extends AppCompatActivity {
 
         mRegBtn = (Button) findViewById(R.id.start_reg_btn);
         mLoginBtn = (Button) findViewById(R.id.start_login_btn);
-        mActTwoBtn  = (Button) findViewById(R.id.act_two_button);
-
-        mActTwoBtn.setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View v) {
-                      openSearch();
-                  }
-              });
 
         mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
