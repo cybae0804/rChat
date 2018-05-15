@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(UsersIntent);
 
         }
+        if(item.getItemId() == R.id.main_search_btn){
+
+            Intent searchIntent = new Intent(MainActivity.this, Search.class);
+            startActivity(searchIntent);
+
+        }
 
         return true;
     }
