@@ -43,6 +43,9 @@ public class ChatActivity extends AppCompatActivity {
     private String mCurrentUserId;
 
     private EditText mChatMessageView;
+    private ImageButton mChatAddBtn;
+    private ImageButton mChatSendBtn;
+
 
     private final List<Messages> messagesList = new ArrayList<>();
     private MessageAdapter mAdapter;
@@ -86,8 +89,8 @@ public class ChatActivity extends AppCompatActivity {
         // Custom Action Bar Items (dont have any nor the custom action bar
 
 
-        ImageButton mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
-        ImageButton mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
+         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
         //------IMAGE STORAGE-------------
