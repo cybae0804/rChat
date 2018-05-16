@@ -143,6 +143,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(!dataSnapshot.hasChild(mChatUser)){
 
                     Map chatAddMap = new HashMap();
+
 //                    chatAddMap.put("seen",false);
 //                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
@@ -237,7 +238,6 @@ public class ChatActivity extends AppCompatActivity {
                         messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
                         messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
-                        //---------------ANDREW START HERE------------------------------------------
                         mChatMessageView.setText("");
 
                         mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
