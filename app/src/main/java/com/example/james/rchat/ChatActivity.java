@@ -51,6 +51,7 @@ public class ChatActivity extends AppCompatActivity {
     private MessageAdapter mAdapter;
     private RecyclerView mMessagesList;
 
+
     private static final int GALLERY_PICK = 1;
 
     // Storage Firebase
@@ -98,6 +99,14 @@ public class ChatActivity extends AppCompatActivity {
 
         mAdapter = new MessageAdapter(messagesList);
         mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+
+        //------PARAMETERS FOR RECYCLER VIEW (MAKE LESS LAGGY)---------------------
+        mMessagesList.setHasFixedSize(true);
+        mMessagesList.setItemViewCacheSize(20);
+        mMessagesList.setDrawingCacheEnabled(true);
+        mMessagesList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+
         final LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
 
         mMessagesList.setHasFixedSize(true);
