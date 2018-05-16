@@ -169,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
+        // need new add image button clicker
 
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
