@@ -235,6 +235,21 @@ public class ChatActivity extends AppCompatActivity {
                         messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
                         //---------------ANDREW START HERE------------------------------------------
+                        mChatMessageView.setText("");
+
+                        mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                if(databaseError != null){
+
+                                    Log.d("CHAT_LOG",databaseError.getMessage().toString());
+
+                                }
+
+                            }
+                        });
+
                     }
                 }
             });
