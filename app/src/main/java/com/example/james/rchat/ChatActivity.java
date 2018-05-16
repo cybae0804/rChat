@@ -183,6 +183,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+
                 Intent galleryIntent = new Intent();
                 galleryIntent.setType("image/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -195,7 +196,8 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void onActivityResult (int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -235,7 +237,7 @@ public class ChatActivity extends AppCompatActivity {
                         //---------------ANDREW START HERE------------------------------------------
                     }
                 }
-            })
+            });
         }
     }
 

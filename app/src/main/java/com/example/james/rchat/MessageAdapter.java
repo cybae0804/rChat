@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
         public TextView messageText;
 //        public TextView timeText;
         public ImageView profileImage;
+        public ImageView messageImage;
 
         public MessageViewHolder(View view) {
             super(view);
@@ -49,6 +52,7 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
             messageText = (TextView) view.findViewById(R.id.message_text_layout);
 //            timeText = (TextView) view.findViewById(R.id.message_item_time);
             profileImage = (ImageView) view.findViewById(R.id.message_profile_layout);
+            messageImage = (ImageView) view.findViewById(R.id.message_image_layout);
         }
     }
 
@@ -60,6 +64,7 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
         Messages c = mMessageList.get(i);
 
         String from_user = c.getFrom();
+        String message_type = c.getType();
 
         if(from_user.equals(current_user_id)){
             viewHolder.messageText.setBackgroundResource(R.drawable.user_message_text_background);
@@ -73,9 +78,21 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
 
         }
 
-        viewHolder.messageText.setText(c.getMessage());
-//        viewHolder.timeText.setText(c.getTime());
+//        viewHolder.messageText.setText(c.getMessage());
+        //viewHolder.timeText.setText(c.getTime());
         //profile image setting here
+
+        if(message_type.equals("text")) {
+
+            viewHolder.messageText.setText(c.getMessage());
+            viewHolder.messageImage.setVisibility(View.INVISIBLE);
+
+        } else {
+            viewHolder.messageText.setVisibility(View.INVISIBLE);
+
+            Picasso.get().load(c.getMessage())
+                    .placeholder(R.drawable.default_pic).into(viewHolder.messageImage);
+        }
     }
 
     @Override
