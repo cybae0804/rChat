@@ -94,13 +94,6 @@ public class MainActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(settingsIntent);
         }
-
-        if(item.getItemId() == R.id.main_all_btn){
-
-            Intent UsersIntent = new Intent(MainActivity.this, UsersActivity.class);
-            startActivity(UsersIntent);
-
-        }
         if(item.getItemId() == R.id.main_search_btn){
 
             Intent searchIntent = new Intent(MainActivity.this, Search.class);

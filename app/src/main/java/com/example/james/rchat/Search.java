@@ -35,6 +35,9 @@ public class Search extends AppCompatActivity {
     private RecyclerView resultList;
     private DatabaseReference userDatabase;
 
+    private EditText searchEmail;
+    private Button   emailButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,38 +47,63 @@ public class Search extends AppCompatActivity {
         searchUser = (EditText) findViewById(R.id.User_Name);
         userButton = (Button) findViewById(R.id.user_search_button);
 
+        searchEmail = (EditText) findViewById(R.id.User_email) ;
+        emailButton = (Button) findViewById(R.id.user_email_button);
+
         resultList = (RecyclerView) findViewById(R.id.result_list);
         resultList.setLayoutManager(new LinearLayoutManager(this));
         resultList.setHasFixedSize(true);
+
 
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String searchText = searchUser.getText().toString();
-                firebaseUserSearch(searchText);
+                Query SearchQuery = userDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
+                firebaseUserSearch(SearchQuery);
+
+            }
+        });
+
+        emailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = searchEmail.getText().toString();
+
+                    Query SearchQuery = userDatabase.orderByChild("email").startAt(searchText).endAt(searchText + "\uf8ff");
+                    firebaseUserSearch(SearchQuery);
+
             }
         });
     }
 
-    private void firebaseUserSearch(String searchText) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String searchText = "";
         Query SearchQuery = userDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
+        firebaseUserSearch(SearchQuery);
+
+    }
+
+    private void firebaseUserSearch(Query SearchQuery) {
 
         FirebaseRecyclerOptions<Users> options =
                 new FirebaseRecyclerOptions.Builder<Users>()
                         .setQuery(SearchQuery, Users.class)
                         .build();
 
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Users, UsersActivity.UserViewHolder>(options) {
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Users, Search.UserViewHolder>(options) {
             @Override
-            public UsersActivity.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public Search.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.users_single_layout, parent, false);
 
-                return new UsersActivity.UserViewHolder(view);
+                return new Search.UserViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(UsersActivity.UserViewHolder userViewHolder, int position, Users model) {
+            protected void onBindViewHolder(Search.UserViewHolder userViewHolder, int position, Users model) {
                 userViewHolder.setName(model.name);
                 userViewHolder.setUserImage(model.image, getApplicationContext());
                 final String user_id = getRef(position).getKey();
@@ -94,6 +122,8 @@ public class Search extends AppCompatActivity {
         resultList.setAdapter(adapter);
         adapter.startListening();
     }
+
+
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         View mView;
