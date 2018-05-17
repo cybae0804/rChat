@@ -87,7 +87,7 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
 
 //        viewHolder.messageText.setText(c.getMessage());
 //        viewHolder.timeText.setText(c.getTime());
-
+//        ---------PROFILE IMAGE SETTING HERE (NOT WORKING YET) ------------------------------------
        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -108,12 +108,13 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
 
         if(message_type.equals("text")) {
 
+            viewHolder.messageImage.setVisibility(View.GONE);
+            viewHolder.messageText.setVisibility(View.VISIBLE);
             viewHolder.messageText.setText(c.getMessage());
-            viewHolder.messageImage.setVisibility(View.INVISIBLE);
 
         } else {
-            viewHolder.messageText.setVisibility(View.INVISIBLE);
-
+            viewHolder.messageText.setVisibility(View.GONE);
+            viewHolder.messageImage.setVisibility(View.VISIBLE);
             Picasso.get().load(c.getMessage())
                     .placeholder(R.drawable.default_pic).into(viewHolder.messageImage);
         }
