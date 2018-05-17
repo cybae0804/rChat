@@ -38,6 +38,14 @@
 ## master branch
 Tested and true code goes here.
 
+### 5/16/2018
+
+- Picture message implemented.
+
+- All Users dropped.
+
+- Search by email and username implemented.
+
 ### 5/14/2018
 Merged with dev branch:
 
@@ -83,6 +91,15 @@ Merged with jamesb branch:
 
 ## dev branch
 Trial by fire code goes here.
+
+### 5/16/2018
+
+- Picture message implemented.
+
+- All Users dropped.
+
+- Search by email and username implemented.
+
 
 ### 5/14/2018
 
