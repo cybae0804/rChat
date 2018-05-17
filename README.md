@@ -31,7 +31,7 @@
 
 4. Build
 
-
+APK file is under /app/build/outputs/apk/debug
 
 
 
