@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void register_user(final String display_name, String email, String password){
+    private void register_user(final String display_name, final String email, String password){
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -106,6 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("status", "me_irl");
                     userMap.put("image", "default");
                     userMap.put("thumb_image", "default");
+                    userMap.put("email", email);
 
                     mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
