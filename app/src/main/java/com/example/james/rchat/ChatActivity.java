@@ -1,19 +1,25 @@
 package com.example.james.rchat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,11 +40,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ChatActivity extends AppCompatActivity {
 
     private String mChatUser;
+    private Toolbar mChatToolbar;
 
     private DatabaseReference mRootRef;
+
+    private TextView mTitleView;
+    private TextView mLastSeenView;
+    private CircleImageView mProfileImage;
+    private FirebaseAuth mAuth;
 
     private String mCurrentUserId;
 
@@ -62,22 +76,54 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Toolbar mChatToolbar = (Toolbar) findViewById(R.id.chat_app__bar);
+        mChatToolbar = (Toolbar) findViewById(R.id.chat_app__bar);
         setSupportActionBar(mChatToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
 
         mChatUser = getIntent().getStringExtra("user_id");
+        String userName = getIntent().getStringExtra("user_name");
 
-        mRootRef.child("Users").child(mChatUser).addListenerForSingleValueEvent(new ValueEventListener() {
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
+
+        actionBar.setCustomView(action_bar_view);
+
+        // Custom Action Bar Items
+
+        mTitleView = (TextView) findViewById(R.id.custom_bar_title);
+        mLastSeenView = (TextView) findViewById(R.id.custom_bar_seen);
+        mProfileImage = (CircleImageView) findViewById(R.id.custom);
+
+        mTitleView.setText(userName);
+
+        mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String chat_user_name = dataSnapshot.child("name").getValue().toString();
-                getSupportActionBar().setTitle(chat_user_name);
+                String online = dataSnapshot.child("online").getValue().toString();
+                String image = dataSnapshot.child("image").getValue().toString();
+
+                if(online.equals("true")){
+                    mLastSeenView.setText("Online");
+                }else{
+
+                    GetTimeAgo getTimeAgo = new GetTimeAgo();
+
+                    long lastTime = Long.parseLong(online);
+
+                    String lastSeenTime = getTimeAgo.getTimeAgo(lastTime, getApplicationContext());
+
+                    mLastSeenView.setText(lastSeenTime);
+
+//                    mLastSeenView.setText(online);
+                }
 
             }
 
@@ -87,7 +133,22 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Custom Action Bar Items (dont have any nor the custom action bar
+
+//        mRootRef.child("Users").child(mChatUser).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                String chat_user_name = dataSnapshot.child("name").getValue().toString();
+////                getSupportActionBar().setTitle(chat_user_name);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
 
 
          mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
@@ -150,8 +211,8 @@ public class ChatActivity extends AppCompatActivity {
 
                     Map chatAddMap = new HashMap();
 
-//                    chatAddMap.put("seen",false);
-//                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+                    chatAddMap.put("seen",false);
+                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
                     Map chatUserMap = new HashMap();
                     chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser,chatAddMap);
