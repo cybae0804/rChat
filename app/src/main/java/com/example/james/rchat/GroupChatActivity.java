@@ -1,4 +1,7 @@
-package com.example.james.rchat;        //TODO: ADD INTENT FILTER
+//TODO: ADD INTENT FILTER
+//TODO: DEAL WITH SPECIFIC GROUP ID ISSUE
+
+package com.example.james.rchat;
 
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +35,11 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private String mCurrentUserId;
     private EditText mChatMessageView;
+    private String mCurrentGroupId;                             //TODO FIGURE OUT HOW TO LOAD WITH GROUP ID
 
     private final List<Messages> messagesList = new ArrayList<>();
-
-    private final List<String> userList = new ArrayList<>();    //TODO figure out data structure to merge with firebase || Need to talk to James or Cy
-    private string chatName;                                    //TODO implement group name
+    private List<String> userList = new ArrayList<>();    //TODO figure out data structure to merge with firebase || Need to talk to James or Cy
+    //private string chatName;                                  //TODO implement group name
 
     private MessageAdapter mAdapter;
     private RecyclerView mMessagesList;
@@ -44,7 +47,7 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);                 //changes ui vew to activity chat res/layout/activity_chat.xml
+        setContentView(R.layout.activity_chat);                 //TODO TEST IF XML IS CROSS COMPATIBLE
 
         Toolbar mChatToolbar = (Toolbar) findViewById(R.id.chat_app__bar);
         setSupportActionBar(mChatToolbar);
@@ -54,10 +57,15 @@ public class GroupChatActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();            //get Firebase authentication key
         mCurrentUserId = mAuth.getCurrentUser().getUid();           //get CurrentUser Database ID
 
-        //mChatUser = getIntent().getStringExtra("user_id");        //TODO: Modify for group chat. Load userList instead.
-                                                                    //      Use userList instead
-
-        for(int i = 0; i < userList.size(); i++){ //TODO: second opinion on adding listener for each user in the group chat
+        string mUserRef = "Groups/" + mCurrentUserId + "/" + mCurrentGroupId + "/Users";    //copy userIDs to userList
+/*        mUserRef.once("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                string childData = childSnapshot.val();
+                userList.add(childData);
+            });
+        });
+*/
+        for(int i = 0; i < userList.size(); i++){ //TODO: TEST WITH GROUPCHAT
             mRootRef.child("Users").child(userList.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
@@ -70,9 +78,9 @@ public class GroupChatActivity extends AppCompatActivity {
             });
         }
 
-        // Custom Action Bar Items (dont have any nor the custom action bar
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// User Interface
+////////////////////////////////////////////////////////////////////////////////////////////////////
         ImageButton mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         ImageButton mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
@@ -113,8 +121,7 @@ public class GroupChatActivity extends AppCompatActivity {
         });
 
         mMessagesList.setAdapter(mAdapter);
-
-        loadMessages();
+        loadMessages(); //messages loaded
 
 
         mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
@@ -124,8 +131,8 @@ public class GroupChatActivity extends AppCompatActivity {
                 if(!dataSnapshot.hasChild(mChatUser)){
 
                     Map chatAddMap = new HashMap();
-//                    chatAddMap.put("seen",false);
-//                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+                        //chatAddMap.put("seen",false);
+                        //chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
                     Map chatUserMap = new HashMap();
                     chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser,chatAddMap);
@@ -163,13 +170,11 @@ public class GroupChatActivity extends AppCompatActivity {
                 mMessagesList.smoothScrollToPosition(mMessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
             }
         });
-
-
     }
 
     private void loadMessages() {
 
-        mRootRef.child("messages").child(mCurrentUserId).child(mChatUser).addChildEventListener(new ChildEventListener() { //TODO modify to load messages from multiple people unique to the group chat -- database issue
+        mRootRef.child("Groups").child(mCurrentUserId).child(groupID).child("Messages").addChildEventListener(new ChildEventListener() { //TODO modify to load messages from multiple people unique to the group chat -- database issue
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -210,8 +215,8 @@ public class GroupChatActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(message)){
 
-            String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser; //TODO Change recipients for group chat instead of one user
-            String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
+            String current_user_ref = "Groups/" + mCurrentUserId + "/" + groupID + "/Messages"; //TODO Change recipients for group chat instead of one user
+            //String chat_user_ref = "Groups/" + mChatUser + "/" + groupID + "/Messages";
 
             DatabaseReference user_message_push = mRootRef.child("messages")
                     .child(mCurrentUserId).child(mChatUser).push();
@@ -221,12 +226,15 @@ public class GroupChatActivity extends AppCompatActivity {
             Map messageMap = new HashMap();
             messageMap.put("message", message);
 //            messageMap.put("seen", false);
-            messageMap.put("type", "text");
+            messageMap.put("type", "group-text");
 //            messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("from", mCurrentUserId);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+
+
+            String chat_user_ref = "Groups/" + mChatUser + "/" + groupID + "/Messages"; //TODO MODIFY FOR GROUPCHAT
             messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
             mChatMessageView.setText("");
@@ -243,8 +251,6 @@ public class GroupChatActivity extends AppCompatActivity {
 
                 }
             });
-
-
         }
     }
 }
