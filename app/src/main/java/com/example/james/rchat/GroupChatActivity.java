@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //TODO: ADD INTENT FILTER
 //TODO: DEAL WITH SPECIFIC GROUP ID ISSUE
 /*
@@ -255,4 +256,6 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 }
 
+//
+//    private DatabaseReference mRootRef;
 */

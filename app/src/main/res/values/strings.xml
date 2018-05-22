@@ -21,4 +21,6 @@
     <string name="total_friends">Total Friends</string>
     <string name="send_friend_request">SEND FRIEND REQUEST</string>
     <string name="send_message">SEND MESSAGE</string>
+    <string name="create_a_new_group">Create a New Group</string>
+    <string name="create">Create</string>
 </resources>
