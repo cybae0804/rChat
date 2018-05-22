@@ -13,4 +13,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="change_image">CHANGE IMAGE</string>
     <string name="changeStatusres">CHANGE STATUS</string>
+    <string name="singledisplayname">DisplayName</string>
+    <string name="singlestatus">StatusHere</string>
+    <string name="textview">TextView</string>
+    <string name="profile_display_name">Display Name</string>
+    <string name="profile_status">user status here</string>
+    <string name="total_friends">Total Friends</string>
+    <string name="send_friend_request">SEND FRIEND REQUEST</string>
+    <string name="send_message">SEND MESSAGE</string>
+    <string name="messagelayout">TextView</string>
+    <string name="chat_page">Chat Page</string>
 </resources>
