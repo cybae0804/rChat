@@ -1,6 +1,5 @@
 package com.example.james.rchat;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,10 +27,6 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ChatsFragment extends Fragment {
 
     private RecyclerView mConvList;
@@ -45,7 +40,6 @@ public class ChatsFragment extends Fragment {
     private String mCurrent_user_id;
 
     private View mMainView;
-
 
     public ChatsFragment() {
         // Required empty public constructor
