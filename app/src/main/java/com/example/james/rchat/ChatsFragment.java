@@ -106,17 +106,48 @@ public class ChatsFragment extends Fragment {
 
             @Override
             public void onBindViewHolder(final ChatsFragment.ConversationViewHolder conversationViewHolder, int position, Messages model) {
-                conversationViewHolder.setName(model.getFrom());
-                conversationViewHolder.setText(model.getMessage());
+
 
                 final String list_user_id = getRef(position).getKey();
+
+                Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
+
+                lastMessageQuery.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                        String data = dataSnapshot.child("message").getValue().toString();
+                        conversationViewHolder.setText(data);
+
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
-                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+                        String userThumb = dataSnapshot.child("image").getValue().toString();
 
                         conversationViewHolder.setName(userName);
                         conversationViewHolder.setUserImage(userThumb, getContext());
