@@ -105,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        if(item.getItemId() == R.id.main_create_group_chat){
+
+            Intent startGroupChat = new Intent(MainActivity.this, GroupCreationActivity.class );
+            startActivity(startGroupChat);
+        }
+
         if(item.getItemId() == R.id.main_logout_btn){
 
             mUserRef.child("online").setValue(ServerValue.TIMESTAMP);

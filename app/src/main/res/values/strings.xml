@@ -23,4 +23,6 @@
     <string name="send_message">SEND MESSAGE</string>
     <string name="messagelayout">TextView</string>
     <string name="chat_page">Chat Page</string>
+    <string name="create_a_new_group">Create a New Group</string>
+    <string name="create">Create</string>
 </resources>
