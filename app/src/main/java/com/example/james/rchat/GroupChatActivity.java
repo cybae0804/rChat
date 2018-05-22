@@ -57,13 +57,13 @@ public class GroupChatActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();            //get Firebase authentication key
         mCurrentUserId = mAuth.getCurrentUser().getUid();           //get CurrentUser Database ID
 
-        string mUserRef = "Groups/" + mCurrentUserId + "/" + mCurrentGroupId + "/Users";    //copy userIDs to userList
+     /*   string mUserRef = "Groups/" + mCurrentUserId + "/" + mCurrentGroupId + "/Users";    //copy userIDs to userList
         mUserRef.once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
                 string childData = childSnapshot.val();
                 userList.add(childData);
-            });
-        });
+            })
+        })
 
         for(int i = 0; i < userList.size(); i++){ //TODO: TEST WITH GROUPCHAT
             mRootRef.child("Users").child(userList.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -254,7 +254,4 @@ public class GroupChatActivity extends AppCompatActivity {
         }
     }
 }
-
-//
-//    private DatabaseReference mRootRef;
 */
