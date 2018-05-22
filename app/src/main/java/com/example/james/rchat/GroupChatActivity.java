@@ -1,6 +1,6 @@
 //TODO: ADD INTENT FILTER
 //TODO: DEAL WITH SPECIFIC GROUP ID ISSUE
-
+/*
 package com.example.james.rchat;
 
 import android.media.Image;
@@ -58,13 +58,13 @@ public class GroupChatActivity extends AppCompatActivity {
         mCurrentUserId = mAuth.getCurrentUser().getUid();           //get CurrentUser Database ID
 
         string mUserRef = "Groups/" + mCurrentUserId + "/" + mCurrentGroupId + "/Users";    //copy userIDs to userList
-/*        mUserRef.once("value", function(snapshot) {
+        mUserRef.once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
                 string childData = childSnapshot.val();
                 userList.add(childData);
             });
         });
-*/
+
         for(int i = 0; i < userList.size(); i++){ //TODO: TEST WITH GROUPCHAT
             mRootRef.child("Users").child(userList.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -254,3 +254,5 @@ public class GroupChatActivity extends AppCompatActivity {
         }
     }
 }
+
+*/
