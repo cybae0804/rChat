@@ -6,10 +6,10 @@
     tools:context=".ChatsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Chat Page" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/chat_page" />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatsList"

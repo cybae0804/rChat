@@ -1,6 +1,7 @@
 package com.example.james.rchat;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,19 +19,20 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChatsFragment extends Fragment {
-    private EditText searchUser;
-    private Button userButton;
-    private RecyclerView resultList;
-    private DatabaseReference userDatabase;
 
     private RecyclerView mConvList;
 
@@ -87,7 +89,7 @@ public class ChatsFragment extends Fragment {
     }
 
     public void conversationsDisplay(){
-        Query messageQuery = mMessageDatabase.child("messages").limitToLast(1);
+        Query messageQuery = mMessageDatabase;
 
         FirebaseRecyclerOptions<Messages> options =
                 new FirebaseRecyclerOptions.Builder<Messages>()
@@ -103,9 +105,45 @@ public class ChatsFragment extends Fragment {
             }
 
             @Override
-            public void onBindViewHolder(ChatsFragment.ConversationViewHolder conversationViewHolder, int position, Messages model) {
-                ConversationViewHolder.setName(model.getFrom());
-                ConversationViewHolder.setText(model.getMessage());
+            public void onBindViewHolder(final ChatsFragment.ConversationViewHolder conversationViewHolder, int position, Messages model) {
+                conversationViewHolder.setName(model.getFrom());
+                conversationViewHolder.setText(model.getMessage());
+
+                final String list_user_id = getRef(position).getKey();
+
+                mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        final String userName = dataSnapshot.child("name").getValue().toString();
+                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+
+                        conversationViewHolder.setName(userName);
+                        conversationViewHolder.setUserImage(userThumb, getContext());
+
+                        conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+
+                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                chatIntent.putExtra("user_id", list_user_id);
+                                chatIntent.putExtra("user_name", userName);
+                                startActivity(chatIntent);
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
 //              TODO: get click to open chat working
 //                final String user_id = getRef(position).getKey();
 //                ConversationViewHolder.mView.setOnClickListener(new View.OnClickListener(){
@@ -120,6 +158,8 @@ public class ChatsFragment extends Fragment {
             }
 
         };
+        mConvList.setAdapter(adapter);
+        adapter.startListening();
     }
 
     public static class ConversationViewHolder extends RecyclerView.ViewHolder {
@@ -137,6 +177,13 @@ public class ChatsFragment extends Fragment {
         public void setText(String message){
             TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
             messageView.setText(message);
+        }
+
+        public void setUserImage(String thumb_image, Context ctx){
+
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
+            Picasso.get().load(thumb_image).placeholder(R.drawable.default_pic).into(userImageView);
+
         }
     }
 }
