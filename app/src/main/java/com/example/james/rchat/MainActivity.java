@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        if(item.getItemId() == R.id.main_create_group_chat){
+
+            Intent startGroupChat = new Intent(MainActivity.this, )
+        }
+
         if(item.getItemId() == R.id.main_logout_btn){
 
             FirebaseAuth.getInstance().signOut();
