@@ -101,7 +101,6 @@ public class ChatActivity extends AppCompatActivity {
         mLastSeenView = (TextView) findViewById(R.id.custom_bar_seen);
         mProfileImage = (CircleImageView) findViewById(R.id.custom);
 
-        mTitleView.setText(userName);
 
         mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,6 +108,9 @@ public class ChatActivity extends AppCompatActivity {
 
                 String online = dataSnapshot.child("online").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
+                String actualUserName = dataSnapshot.child("name").getValue().toString();
+
+                mTitleView.setText(actualUserName);
 
                 if(online.equals("true")){
                     mLastSeenView.setText("Online");
