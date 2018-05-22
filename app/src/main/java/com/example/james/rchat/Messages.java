@@ -2,10 +2,10 @@ package com.example.james.rchat;
 
 public class Messages {
 
-    private String message, type;
+    public String message, type;
 //    private long time;
 //    private boolean seen;
-    private String from;
+    public String from;
 
     public Messages(String from) { this.from = from; }
 
