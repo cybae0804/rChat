@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private TextView mTitleView;
     private TextView mLastSeenView;
+    private TextView mCurrentlyTyping;
     private CircleImageView mProfileImage;
     private FirebaseAuth mAuth;
 
@@ -153,7 +156,24 @@ public class ChatActivity extends AppCompatActivity {
 
          mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
          mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+        mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
+        mChatMessageView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s)) {
+                    mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("typing").setValue(false);
+                } else {
+                    mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("typing").setValue(true);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         //------IMAGE STORAGE-------------
         mImageStorage = FirebaseStorage.getInstance().getReference();
@@ -201,7 +221,21 @@ public class ChatActivity extends AppCompatActivity {
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
+        mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("typing").addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot snapsnap){
+                if (snapsnap.getValue().toString() == "true"){
+                    mCurrentlyTyping.setText("Typing...");
+                } else {
+                    mCurrentlyTyping.setText("");
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -213,6 +247,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     chatAddMap.put("seen",false);
                     chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+                    chatAddMap.put("typing",false);
 
                     Map chatUserMap = new HashMap();
                     chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser,chatAddMap);
