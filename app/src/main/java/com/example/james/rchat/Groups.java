@@ -1,19 +1,19 @@
 package com.example.james.rchat;
 
-public class Messages {
+public class Groups {
 
     public String message, type;
     private long time;
     private boolean seen;
     public String from;
 
-    public Messages(String from) { this.from = from; }
+    public Groups(String from) { this.from = from; }
 
     public String getFrom() { return from; }
 
     public void setFrom(String from) { this.from = from; }
 
-    public Messages(String message, Boolean seen, long time, String type, String from){
+    public Groups(String message, Boolean seen, long time, String type, String from){
         this.message = message;
         this.seen = seen;
         this.time = time;
@@ -37,7 +37,7 @@ public class Messages {
 
     public void setType(String type) { this.type = type; }
 
-    public Messages(){
+    public Groups(){
 
     }
 
