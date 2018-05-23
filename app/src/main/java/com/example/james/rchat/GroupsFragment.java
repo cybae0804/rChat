@@ -31,9 +31,7 @@ public class GroupsFragment extends Fragment {
 
     private RecyclerView mGroupsList;
 
-    private DatabaseReference mConversationDatabase;
-//    private DatabaseReference mMessageDatabase;
-    private DatabaseReference mUsersDatabase;
+    private DatabaseReference mGroupsDatabase;
 
     private FirebaseAuth mAuth;
 
@@ -50,24 +48,13 @@ public class GroupsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mMainView = inflater.inflate(R.layout.fragment_groups
-                , container, false);
+        mMainView = inflater.inflate(R.layout.fragment_groups, container, false);
         mGroupsList = (RecyclerView) mMainView.findViewById(R.id.groupsList);
         mAuth = FirebaseAuth.getInstance();
-
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mConversationDatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(mCurrent_user_id);
-        mConversationDatabase.keepSynced(true);
-
-//        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-//        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
-//        mUsersDatabase.keepSynced(true);
-
+        mGroupsDatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(mCurrent_user_id);
         LinearLayoutManager linLayout = new LinearLayoutManager(getContext());
-        linLayout.setReverseLayout(true);
-        linLayout.setStackFromEnd(true);
-
         mGroupsList.setHasFixedSize(true);
         mGroupsList.setLayoutManager(linLayout);
 
@@ -81,7 +68,7 @@ public class GroupsFragment extends Fragment {
     }
 
     public void groupsDisplay(){
-        Query groupsQuery = mConversationDatabase;
+        Query groupsQuery = mGroupsDatabase;
 
         FirebaseRecyclerOptions<Groups> options =
                 new FirebaseRecyclerOptions.Builder<Groups>()
@@ -96,90 +83,15 @@ public class GroupsFragment extends Fragment {
 
                 return new GroupsFragment.GroupsViewHolder(view);
             }
+
             @Override
             public void onBindViewHolder(final GroupsFragment.GroupsViewHolder groupsViewHolder, int position, Groups model) {
+                groupsViewHolder.setGroupName(model.groupName);
 
-
-//                final String list_group_id = getRef(position).getKey();
-
-//                Query lastMessageQuery = mConversationDatabase.child(list_group_id).limitToLast(1);
-
-//                lastMessageQuery.addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//                        String data = dataSnapshot.child("message").getValue().toString();
-//                        conversationViewHolder.setText(data);
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-
-//                mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        final String userName = dataSnapshot.child("name").getValue().toString();
-//                        String userThumb = dataSnapshot.child("image").getValue().toString();
-//
-//                        conversationViewHolder.setName(userName);
-//                        conversationViewHolder.setUserImage(userThumb, getContext());
-//
-//                        conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//
-//
-//                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-//                                chatIntent.putExtra("user_id", list_user_id);
-//                                chatIntent.putExtra("user_name", userName);
-//                                startActivity(chatIntent);
-//
-//                            }
-//                        });
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-
-
-//              TODO: get click to open chat working
-//                final String user_id = getRef(position).getKey();
-//                ConversationViewHolder.mView.setOnClickListener(new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View view){
-//
-//                        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-//                        chatIntent.putExtra("user_id", user_id);
-//                        startActivity(chatIntent);
-//                    }
-//                });
             }
         };
+        mGroupsList.setAdapter(adapter);
+        adapter.startListening();
     }
 
     public static class GroupsViewHolder extends RecyclerView.ViewHolder {
@@ -189,21 +101,9 @@ public class GroupsFragment extends Fragment {
             mView = itemView;
         }
 
-        public void setName(String name){
-            TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
-            userNameView.setText(name);
+        public void setGroupName(String name){
+            TextView GroupNameView = (TextView) mView.findViewById(R.id.groups_single_name);
+            GroupNameView.setText(name);
         }
-
-//        public void setText(String message){
-//            TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
-//            messageView.setText(message);
-//        }
-//
-//        public void setUserImage(String thumb_image, Context ctx){
-//
-//            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
-//            Picasso.get().load(thumb_image).placeholder(R.drawable.default_pic).into(userImageView);
-//
-//        }
     }
 }
