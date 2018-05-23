@@ -137,20 +137,20 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-//        mRootRef.child("Users").child(mChatUser).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-////                String chat_user_name = dataSnapshot.child("name").getValue().toString();
-////                getSupportActionBar().setTitle(chat_user_name);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        mRootRef.child("Users").child(mChatUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String chat_user_name = dataSnapshot.child("name").getValue().toString();
+                getSupportActionBar().setTitle(chat_user_name);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -224,10 +224,12 @@ public class ChatActivity extends AppCompatActivity {
         mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("typing").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot snapsnap){
-                if (snapsnap.getValue().toString() == "true"){
-                    mCurrentlyTyping.setText("Typing...");
-                } else {
-                    mCurrentlyTyping.setText("");
+                if (snapsnap.exists()) {
+                    if (snapsnap.getValue().toString() == "true") {
+                        mCurrentlyTyping.setText("Typing...");
+                    } else {
+                        mCurrentlyTyping.setText("");
+                    }
                 }
             }
 
