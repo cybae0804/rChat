@@ -302,7 +302,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View view){
 
                 Intent galleryIntent = new Intent();
-                galleryIntent.setType("*/*");
+                galleryIntent.setType("images/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
