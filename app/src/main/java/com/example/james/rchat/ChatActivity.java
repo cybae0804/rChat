@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.drm.DrmStore;
 import android.media.Image;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -73,6 +74,14 @@ public class ChatActivity extends AppCompatActivity {
 
     // Storage Firebase
     private StorageReference mImageStorage;
+
+    ///// move this
+//    private void dispatchTakeVideoIntent() {
+//        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,7 +302,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View view){
 
                 Intent galleryIntent = new Intent();
-                galleryIntent.setType("image/*");
+                galleryIntent.setType("*/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
@@ -313,6 +322,9 @@ public class ChatActivity extends AppCompatActivity {
 
             Uri imageUri = data.getData();
 
+            //added
+            //Uri videoUri = data.getData();
+
             final String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
             final String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
 
@@ -321,7 +333,9 @@ public class ChatActivity extends AppCompatActivity {
 
             final String push_id = user_message_push.getKey();
 
-            StorageReference filepath = mImageStorage.child("message_images").child(push_id + ".jpg");
+            StorageReference filepath = mImageStorage.child("message_images").child(push_id);
+            //added
+            //StorageReference vidFilepath = mVideoStorage.child("message_videos").child(push_id + ".mp4 ");
 
             filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
