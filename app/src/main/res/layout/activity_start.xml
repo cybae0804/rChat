@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".StartActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/welcome_to_rchat"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp" />
 
     <Button
@@ -21,7 +23,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="167dp"
-        android:text="@string/sign_up" />
+        android:background="@color/colorPrimary"
+        android:text="@string/sign_up"
+        android:textColor="#ffffff"/>
 
     <Button
         android:id="@+id/start_login_btn"
@@ -30,6 +34,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="107dp"
-        android:text="@string/log_in" />
+        android:background="@color/colorPrimary"
+        android:text="@string/log_in"
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>
