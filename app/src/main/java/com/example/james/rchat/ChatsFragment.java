@@ -107,15 +107,13 @@ public class ChatsFragment extends Fragment {
 
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
-                lastMessageQuery.addChildEventListener(new ChildEventListener() {
+                ChildEventListener childEventListener = lastMessageQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                         String data = dataSnapshot.child("message").getValue().toString();
-                        final String name = mUsersDatabase.child(dataSnapshot.child("from").getValue().toString()).child("name").toString();
 
                         conversationViewHolder.setText(data);
-                        conversationViewHolder.setName(name);
 
                     }
 

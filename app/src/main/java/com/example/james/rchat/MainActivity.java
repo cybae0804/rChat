@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Rchat");
 
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
 
         //Tabs
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
 
         }else{
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
             mUserRef.child("online").setValue("true");
         }
     }
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
             mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
         }
 
