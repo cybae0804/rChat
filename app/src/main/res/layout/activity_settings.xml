@@ -22,20 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="232dp"
+        android:layout_marginBottom="219dp"
         android:text="Display Name"
         android:textColor="@color/colorAccent"
         android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/settingsStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="207dp"
-        android:text="statusText"
-        android:textColor="#ffffff"/>
 
     <Button
         android:id="@+id/settingsImageBtn"
@@ -43,20 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="126dp"
         android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:text="@string/change_image" />
-
-    <Button
-        android:id="@+id/settingsStatusBtn"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="71dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:text="@string/changeStatusres" />
+        android:text="@string/change_image"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
