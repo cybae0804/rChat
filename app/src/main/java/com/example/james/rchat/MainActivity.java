@@ -55,12 +55,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null){
+
+            sendToStart();
+
+        }else{
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+            mUserRef.child("online").setValue("true");
+        }
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
             mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
         }
 
@@ -102,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
             FirebaseAuth.getInstance().signOut();
             sendToStart();
+        }
+
+        if(item.getItemId() == R.id.main_create_group_chat){
+            Intent groupCreationIntent = new Intent(MainActivity.this, GroupCreationActivity.class);
+            startActivity(groupCreationIntent);
         }
 
         if(item.getItemId() == R.id.main_settings_btn){

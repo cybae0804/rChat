@@ -40,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private CircleImageView mDisplayImage;
     private TextView mName;
-    private TextView mStatus;
 
     private Button mImageBtn;
 
@@ -56,7 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         mDisplayImage = (CircleImageView) findViewById(R.id.settings_image);
         mName = (TextView) findViewById(R.id.settingsName);
-        mStatus = (TextView) findViewById((R.id.settingsStatus));
         mImageBtn =(Button) findViewById(R.id.settingsImageBtn);
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -71,11 +69,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
-                String status = dataSnapshot.child("status").getValue().toString();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                 mName.setText(name);
-                mStatus.setText(status);
 
                 Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mDisplayImage);
 

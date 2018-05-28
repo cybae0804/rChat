@@ -3,6 +3,7 @@ package com.example.james.rchat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,11 +107,12 @@ public class ChatsFragment extends Fragment {
 
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
-                lastMessageQuery.addChildEventListener(new ChildEventListener() {
+                ChildEventListener childEventListener = lastMessageQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                         String data = dataSnapshot.child("message").getValue().toString();
+
                         conversationViewHolder.setText(data);
 
                     }
@@ -139,27 +141,27 @@ public class ChatsFragment extends Fragment {
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String userName = dataSnapshot.child("name").getValue().toString();
+                            String userThumb = dataSnapshot.child("image").getValue().toString();
 
-                        final String userName = dataSnapshot.child("name").getValue().toString();
-                        String userThumb = dataSnapshot.child("image").getValue().toString();
+                            conversationViewHolder.setName(userName);
+                            conversationViewHolder.setUserImage(userThumb, getContext());
 
-                        conversationViewHolder.setName(userName);
-                        conversationViewHolder.setUserImage(userThumb, getContext());
-
-                        conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-
-                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-                                chatIntent.putExtra("user_id", list_user_id);
-                                chatIntent.putExtra("user_name", userName);
-                                startActivity(chatIntent);
-
-                            }
-                        });
+                            conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
 
 
+                                    Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                    chatIntent.putExtra("user_id", list_user_id);
+                                    chatIntent.putExtra("user_name", userName);
+                                    startActivity(chatIntent);
+
+                                }
+                            });
+
+                        }
                     }
 
                     @Override
