@@ -70,7 +70,9 @@ public class GroupsFragment extends Fragment {
     }
 
     public void groupsDisplay(){
-        Query groupsQuery = mGroupsIDDatabase;
+        Query groupsQuery = mGroupsIDDatabase;    //TODO modify so only group thay user is in can be viewed
+
+
 
         FirebaseRecyclerOptions<Groups> options =
                 new FirebaseRecyclerOptions.Builder<Groups>()
