@@ -54,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Intent chatIntent = new Intent(ProfileActivity.this,ChatActivity.class);
                 chatIntent.putExtra("user_id", profile_user_id);
+                chatIntent.putExtra("user_name", mProfileName.getText());
                 startActivity(chatIntent);
             }
         });
