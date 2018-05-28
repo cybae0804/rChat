@@ -31,7 +31,8 @@ public class GroupsFragment extends Fragment {
 
     private RecyclerView mGroupsList;
 
-    private DatabaseReference mGroupsDatabase;
+    private DatabaseReference mGroupsIDDatabase;
+    private DatabaseReference mGroupsDataDatabase;
 
     private FirebaseAuth mAuth;
 
@@ -53,7 +54,8 @@ public class GroupsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mGroupsDatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(mCurrent_user_id);
+        mGroupsIDDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrent_user_id).child("Groups");
+        mGroupsDataDatabase = FirebaseDatabase.getInstance().getReference().child("GroupData");
         LinearLayoutManager linLayout = new LinearLayoutManager(getContext());
         mGroupsList.setHasFixedSize(true);
         mGroupsList.setLayoutManager(linLayout);
@@ -68,7 +70,7 @@ public class GroupsFragment extends Fragment {
     }
 
     public void groupsDisplay(){
-        Query groupsQuery = mGroupsDatabase;
+        Query groupsQuery = mGroupsIDDatabase;
 
         FirebaseRecyclerOptions<Groups> options =
                 new FirebaseRecyclerOptions.Builder<Groups>()

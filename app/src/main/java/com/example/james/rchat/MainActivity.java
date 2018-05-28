@@ -123,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
         }
 
-        if(item.getItemId() == R.id.view_group_chats){
-            Intent groupCreationIntent = new Intent(MainActivity.this, GroupUserSearch.class);
-            groupCreationIntent.putExtra("groupID", "-LDcaHgFy1FNxw8fxZYO");
-            startActivity(groupCreationIntent);
-        }
+//        if(item.getItemId() == R.id.view_group_chats){
+//            Intent groupCreationIntent = new Intent(MainActivity.this, GroupUserSearch.class);
+//            groupCreationIntent.putExtra("groupID", "-LDcaHgFy1FNxw8fxZYO");
+//            startActivity(groupCreationIntent);
+//        }
 
         if(item.getItemId() == R.id.main_settings_btn){
 

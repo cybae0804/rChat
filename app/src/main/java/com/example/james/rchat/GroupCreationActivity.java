@@ -90,8 +90,9 @@ public class GroupCreationActivity extends AppCompatActivity {
 
         String key = mDatabaseRef.child("Groups").child(userID).push().getKey();
 
-        mDatabaseRef.child("Groups").child(userID).child(key).child("groupName").setValue(group_name);
-        mDatabaseRef.child("Groups").child(userID).child(key).child("Recipients").child(userID).setValue(userName);
+        mDatabaseRef.child("Users").child(userID).child("Groups").child("groupID").setValue(key);
+        mDatabaseRef.child("GroupData").child(key).child("groupName").setValue(group_name);
+        mDatabaseRef.child("GroupData").child(key).child("Recipients").child(userID).setValue(userName);
 
         //String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID
 
