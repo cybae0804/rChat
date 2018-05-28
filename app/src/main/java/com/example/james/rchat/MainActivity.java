@@ -56,28 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
             sendToStart();
 
-
-        }else{
-            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-
-            mUserRef.child("online").setValue("true");
         }
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null){
-            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-
-            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
-        }
-
-    }
-
 
     private void sendToStart(){
 
