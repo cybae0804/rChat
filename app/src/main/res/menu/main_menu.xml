@@ -16,9 +16,6 @@
         android:title="Create Group" />
 
     <item
-        android:id="@+id/view_group_chats"
-        android:title="View Group Chats" />
-    <item
         android:id="@+id/main_logout_btn"
         android:title="@string/log_out" />
 
