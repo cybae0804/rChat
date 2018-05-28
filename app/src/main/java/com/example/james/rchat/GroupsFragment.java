@@ -92,8 +92,14 @@ public class GroupsFragment extends Fragment {
             public void onBindViewHolder(final GroupsFragment.GroupsViewHolder groupsViewHolder, int position, Groups model) {
                 groupsViewHolder.setGroupName(model.groupName);
 
+                final String list_user_id = getRef(position).getKey();
             }
+
+
         };
+
+//        mGroupsDataDatabase.child()
+
         mGroupsList.setAdapter(adapter);
         adapter.startListening();
     }
