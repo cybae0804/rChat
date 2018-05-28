@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private DatabaseReference mUserRef;
 
     private TabLayout mTabLayout;
 
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Rchat");
 
 
+
         //Tabs
         mViewPager = (ViewPager) findViewById(R.id.main_tabPager);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -42,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-
+        TabLayout.Tab tab = mTabLayout.getTabAt(1);
+        tab.select();
 
     }
 
@@ -55,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser == null){
 
             sendToStart();
-
 
         }else{
             mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
@@ -77,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
     private void sendToStart(){
 
@@ -103,7 +108,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        if(item.getItemId() == R.id.main_create_group_chat){
+
+            Intent startGroupChat = new Intent(MainActivity.this, GroupCreationActivity.class );
+            startActivity(startGroupChat);
+        }
+
         if(item.getItemId() == R.id.main_logout_btn){
+
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
 
             FirebaseAuth.getInstance().signOut();
             sendToStart();

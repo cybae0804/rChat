@@ -1,8 +1,5 @@
 package com.example.james.rchat;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,67 +22,22 @@ public class GroupCreationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private TextInputLayout mGroupName;
-    private Button button;
-
-    private ProgressDialog mRegProgress;
-
     private String mCurrentUserId;
-    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_creation);
 
-//        mRegProgress = new ProgressDialog(this);
-
-
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();     //Firebase authorization
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUserId = mAuth.getCurrentUser().getUid();
 
-        mCurrentUserId = mAuth.getCurrentUser().getUid();   //get current user id for database entry
-        userName = mAuth.getCurrentUser().getDisplayName();
-//
-        button = (Button) findViewById(R.id.button_create_group);   //get button id
-        mGroupName = (TextInputLayout) findViewById(R.id.input_group_name);     //get text box id
+        final Button button = findViewById(R.id.button_create_group);
+        mGroupName = (TextInputLayout) findViewById(R.id.reg_display_name);}
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                String name = mGroupName.getEditText().getText().toString();
-                register_group(name);
-            }
-        });
+    private void register_group(final String group_name){
+
     }
 
-    private void register_group(String group_name){
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userRef = mDatabaseRef.child("Groups" + mCurrentUserId);
-        DatabaseReference groupRef = userRef.push();
-
-        String uniqueGroupID = groupRef.toString();
-
-        String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID
-
-        HashMap<String, String> users = new HashMap<>();
-        users.put(userName, mCurrentUserId);
-
-        Map dataMap = new HashMap();
-        dataMap.put(path + "/groupName", group_name);
-        dataMap.put(path + "/recipients", users);
-
-//        mDatabaseRef.setValue(dataMap);//.addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()){
-//
-                    // Closes registration dialogue
-                    Intent mainIntent = new Intent(GroupCreationActivity.this, MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
-                    startActivity(mainIntent);
-                    finish();
-//                }?
-//            }
-//        });
-    }
 }
