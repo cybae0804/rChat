@@ -34,6 +34,7 @@ public class GroupProfile extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
     private String current_uid;
     private Boolean RecipientExists;
+    private String groupname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class GroupProfile extends AppCompatActivity {
 
         //Getting the info relevant to groupActivity
         groupID = getIntent().getExtras().getString("groupID");
-        mGroupsDatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(current_uid).child(groupID);
+        mGroupsDatabase = FirebaseDatabase.getInstance().getReference().child("GroupData").child(groupID);
         mGroupsDatabase.child("Recipients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,12 +109,12 @@ public class GroupProfile extends AppCompatActivity {
                 } else {
 
                     mGroupsDatabase.child("Recipients").child(profile_user_id).setValue(display_name);  //Adds the recipient
-                    final DatabaseReference copyto = mGroupsDatabase.getParent().getParent().child(profile_user_id);
 
-                    mGroupsDatabase.getParent().addListenerForSingleValueEvent(new ValueEventListener() {           //Copies the content to the new user
+                    mGroupsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {           //Copies the content to the new user
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            copyto.setValue(dataSnapshot.getValue());
+                            groupname = dataSnapshot.child("groupName").getValue().toString();
+                            mUsersDatabase.child("Groups").child(groupID).child("groupName").setValue(groupname);
                         }
 
                         @Override
