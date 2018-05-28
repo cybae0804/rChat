@@ -89,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
         }
 
+        if(item.getItemId() == R.id.main_create_group_chat){
+            Intent groupCreationIntent = new Intent(MainActivity.this, GroupCreationActivity.class);
+            startActivity(groupCreationIntent);
+        }
+
         if(item.getItemId() == R.id.main_settings_btn){
 
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
