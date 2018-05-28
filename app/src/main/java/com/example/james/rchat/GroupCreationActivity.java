@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-//need to commit
+
 public class GroupCreationActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseRef;
@@ -104,11 +104,11 @@ public class GroupCreationActivity extends AppCompatActivity {
 //            public void onComplete(@NonNull Task<Void> task) {
 //                if (task.isSuccessful()){
 //
-                    // Closes registration dialogue
-                    Intent mainIntent = new Intent(GroupCreationActivity.this, MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
-                    startActivity(mainIntent);
-                    finish();
+        // Closes registration dialogue
+        Intent mainIntent = new Intent(GroupCreationActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
+        startActivity(mainIntent);
+        finish();
 //                }?
 //            }
 //        });
