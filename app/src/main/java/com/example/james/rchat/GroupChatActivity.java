@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -334,7 +335,7 @@ public class GroupChatActivity extends AppCompatActivity {
             //added
             //Uri videoUri = data.getData();
 //
-//            final String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
+            final String current_user_ref = "messages/";
 //            final String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
 
             DatabaseReference user_message_push = mGroupRef.child("messages").push();
@@ -361,11 +362,11 @@ public class GroupChatActivity extends AppCompatActivity {
                         messageMap.put("from", mCurrentUserId);
 
                         Map messageUserMap = new HashMap();
-                        messageUserMap.put(push_id, messageMap);
+                        messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
 
                         mChatMessageView.setText("");
 
-                        mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                        mGroupRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
