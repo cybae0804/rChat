@@ -432,9 +432,11 @@ public class ChatActivity extends AppCompatActivity {
             messageMap.put("message", message);
 //            messageMap.put("seen", false);
             messageMap.put("type", "text");
-//            messageMap.put("time", ServerValue.TIMESTAMP);
-            messageMap.put("from", mCurrentUserId);
+            //messageMap.put("time", ServerValue.TIMESTAMP);
 
+            messageMap.put("from", mCurrentUserId);
+            mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+            mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
             messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);

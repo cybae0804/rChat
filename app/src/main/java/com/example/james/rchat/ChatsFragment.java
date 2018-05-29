@@ -144,7 +144,7 @@ public class ChatsFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
-                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+                        String userThumb = dataSnapshot.child("image").getValue().toString();
 
                         if(dataSnapshot.hasChild("online")) {
 
@@ -201,12 +201,12 @@ public class ChatsFragment extends Fragment {
         public void setText(String message, boolean seen) {
             TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
             messageView.setText(message);
-
-            if (!seen) {
-                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);
-            } else {
-                messageView.setTypeface(messageView.getTypeface(), Typeface.NORMAL);
-            }
+//
+//            if (!seen) {
+//                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);
+//            } else {
+//                messageView.setTypeface(messageView.getTypeface(), Typeface.NORMAL);
+//            }
         }
 
         public void setUserImage(String thumb_image, Context ctx) {
