@@ -93,10 +93,37 @@ public class GroupsFragment extends Fragment {
                 groupsViewHolder.setGroupName(model.groupName);
 
                 final String list_user_id = getRef(position).getKey();
+
+                mGroupsIDDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+
+
+                            groupsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+
+                                    Intent groupChatIntent = new Intent(getContext(), SettingsActivity.class);
+//                                    groupChatIntent.putExtra("group_id", key);
+                                    startActivity(groupChatIntent);
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
 
         };
+
 
 //        mGroupsDataDatabase.child()
 

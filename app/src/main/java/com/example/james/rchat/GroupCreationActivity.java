@@ -89,7 +89,7 @@ public class GroupCreationActivity extends AppCompatActivity {
         DatabaseReference groupRef = userRef.push();
 
         String key = mDatabaseRef.child("Groups").child(userID).push().getKey();
-
+        mDatabaseRef.child("Users").child(userID).child("Groups").child(key).child("groupID").setValue(key);
         mDatabaseRef.child("Users").child(userID).child("Groups").child(key).child("groupName").setValue(group_name);
         mDatabaseRef.child("GroupData").child(key).child("groupName").setValue(group_name);
         mDatabaseRef.child("GroupData").child(key).child("Recipients").child(userID).setValue(userName);
