@@ -146,12 +146,14 @@ public class ChatsFragment extends Fragment {
                             final String userName = dataSnapshot.child("name").getValue().toString();
                             String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
-                            if (dataSnapshot.hasChild("online")) {
-
-                                String userOnline = dataSnapshot.child("online").getValue().toString();
-                                conversationViewHolder.setUserOnline(userOnline);
-
-                            }
+//                            if (dataSnapshot.hasChild("online")) {
+//                       		    final String userName = dataSnapshot.child("name").getValue().toString();
+//                        	    String userThumb = dataSnapshot.child("image").getValue().toString();
+//
+//                                String userOnline = dataSnapshot.child("online").getValue().toString();
+//                                conversationViewHolder.setUserOnline(userOnline);
+//
+//                            }
 
                             conversationViewHolder.setName(userName);
                             conversationViewHolder.setUserImage(userThumb, getContext());
@@ -201,12 +203,12 @@ public class ChatsFragment extends Fragment {
         public void setText(String message, boolean seen) {
             TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
             messageView.setText(message);
-
-            if (!seen) {
-                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);
-            } else {
-                messageView.setTypeface(messageView.getTypeface(), Typeface.NORMAL);
-            }
+//
+//            if (!seen) {
+//                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);
+//            } else {
+//                messageView.setTypeface(messageView.getTypeface(), Typeface.NORMAL);
+//            }
         }
 
         public void setUserImage(String thumb_image, Context ctx) {
