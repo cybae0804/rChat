@@ -75,14 +75,6 @@ public class ChatActivity extends AppCompatActivity {
     // Storage Firebase
     private StorageReference mImageStorage;
 
-    ///// move this
-//    private void dispatchTakeVideoIntent() {
-//        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-//        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -336,6 +328,7 @@ public class ChatActivity extends AppCompatActivity {
             StorageReference filepath = mImageStorage.child("message_images").child(push_id);
             //added
             //StorageReference vidFilepath = mVideoStorage.child("message_videos").child(push_id + ".mp4 ");
+
 
             filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
