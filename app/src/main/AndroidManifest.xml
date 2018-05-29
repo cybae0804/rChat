@@ -38,7 +38,8 @@
         <activity android:name=".Search" />
         <activity android:name=".GroupCreationActivity" />
         <activity android:name=".GroupUserSearch" />
-        <activity android:name=".GroupProfile"></activity>
+        <activity android:name=".GroupProfile" />
+        <activity android:name=".GroupChatActivity"></activity>
     </application>
 
 </manifest>

@@ -92,7 +92,7 @@ public class GroupsFragment extends Fragment {
             public void onBindViewHolder(final GroupsFragment.GroupsViewHolder groupsViewHolder, int position, Groups model) {
                 groupsViewHolder.setGroupName(model.groupName);
 
-                final String list_user_id = getRef(position).getKey();
+                final String group_id = getRef(position).getKey();
 
                 mGroupsIDDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -105,8 +105,8 @@ public class GroupsFragment extends Fragment {
                                 public void onClick(View view) {
 
 
-                                    Intent groupChatIntent = new Intent(getContext(), SettingsActivity.class);
-//                                    groupChatIntent.putExtra("group_id", key);
+                                    Intent groupChatIntent = new Intent(getContext(), GroupChatActivity.class);
+                                    groupChatIntent.putExtra("group_id", group_id);
                                     startActivity(groupChatIntent);
 
                                 }
