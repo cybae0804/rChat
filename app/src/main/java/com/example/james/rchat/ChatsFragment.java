@@ -2,6 +2,7 @@ package com.example.james.rchat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -84,13 +86,13 @@ public class ChatsFragment extends Fragment {
     }
 
     public void conversationsDisplay(){
-        Query messageQuery = mMessageDatabase;
+        Query conversationQuery = mConversationDatabase.orderByChild("timestamp");
 
-        FirebaseRecyclerOptions<Messages> options =
-                new FirebaseRecyclerOptions.Builder<Messages>()
-                        .setQuery(messageQuery, Messages.class)
+        FirebaseRecyclerOptions<Conversation> options =
+                new FirebaseRecyclerOptions.Builder<Conversation>()
+                        .setQuery(conversationQuery, Conversation.class)
                         .build();
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Messages, ChatsFragment.ConversationViewHolder>(options) {
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Conversation, ChatsFragment.ConversationViewHolder>(options) {
             @Override
             public ChatsFragment.ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -100,20 +102,19 @@ public class ChatsFragment extends Fragment {
             }
 
             @Override
-            public void onBindViewHolder(final ChatsFragment.ConversationViewHolder conversationViewHolder, int position, Messages model) {
+            public void onBindViewHolder(final ChatsFragment.ConversationViewHolder conversationViewHolder, int position, Conversation model) {
 
 
                 final String list_user_id = getRef(position).getKey();
 
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
-                ChildEventListener childEventListener = lastMessageQuery.addChildEventListener(new ChildEventListener() {
+                lastMessageQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                         String data = dataSnapshot.child("message").getValue().toString();
-
-                        conversationViewHolder.setText(data);
+                        conversationViewHolder.setText(data, Conversation.isSeen());
 
                     }
 
@@ -141,27 +142,34 @@ public class ChatsFragment extends Fragment {
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            final String userName = dataSnapshot.child("name").getValue().toString();
-                            String userThumb = dataSnapshot.child("image").getValue().toString();
 
-                            conversationViewHolder.setName(userName);
-                            conversationViewHolder.setUserImage(userThumb, getContext());
+                        final String userName = dataSnapshot.child("name").getValue().toString();
+                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
-                            conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        if(dataSnapshot.hasChild("online")) {
 
-
-                                    Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-                                    chatIntent.putExtra("user_id", list_user_id);
-                                    chatIntent.putExtra("user_name", userName);
-                                    startActivity(chatIntent);
-
-                                }
-                            });
+                            String userOnline = dataSnapshot.child("online").getValue().toString();
+                            conversationViewHolder.setUserOnline(userOnline);
 
                         }
+
+                        conversationViewHolder.setName(userName);
+                        conversationViewHolder.setUserImage(userThumb, getContext());
+
+                        conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+
+                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                chatIntent.putExtra("user_id", list_user_id);
+                                chatIntent.putExtra("user_name", userName);
+                                startActivity(chatIntent);
+
+                            }
+                        });
+
+
                     }
 
                     @Override
@@ -170,18 +178,6 @@ public class ChatsFragment extends Fragment {
                     }
                 });
 
-
-//              TODO: get click to open chat working
-//                final String user_id = getRef(position).getKey();
-//                ConversationViewHolder.mView.setOnClickListener(new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View view){
-//
-//                        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-//                        chatIntent.putExtra("user_id", user_id);
-//                        startActivity(chatIntent);
-//                    }
-//                });
             }
 
         };
@@ -191,25 +187,48 @@ public class ChatsFragment extends Fragment {
 
     public static class ConversationViewHolder extends RecyclerView.ViewHolder {
         View mView;
+
         public ConversationViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
         }
 
-        public void setName(String name){
+        public void setName(String name) {
             TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
             userNameView.setText(name);
         }
 
-        public void setText(String message){
+        public void setText(String message, boolean seen) {
             TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
             messageView.setText(message);
+
+            if (!seen) {
+                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);
+            } else {
+                messageView.setTypeface(messageView.getTypeface(), Typeface.NORMAL);
+            }
         }
 
-        public void setUserImage(String thumb_image, Context ctx){
+        public void setUserImage(String thumb_image, Context ctx) {
 
             CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
             Picasso.get().load(thumb_image).placeholder(R.drawable.default_pic).into(userImageView);
+
+        }
+
+        public void setUserOnline(String online_status) {
+
+            ImageView userOnlineView = (ImageView) mView.findViewById(R.id.user_single_online_icon);
+
+            if (online_status.equals("true")) {
+
+                userOnlineView.setVisibility(View.VISIBLE);
+
+            } else {
+
+                userOnlineView.setVisibility(View.INVISIBLE);
+
+            }
 
         }
     }
