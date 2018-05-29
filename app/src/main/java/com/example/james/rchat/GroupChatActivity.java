@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -64,6 +65,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
+    private Button mAddUserBtn;
 
 
     private final List<Messages> messagesList = new ArrayList<>();
@@ -87,7 +89,7 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_group_chat);
 
         mChatToolbar = (Toolbar) findViewById(R.id.chat_app__bar);
         setSupportActionBar(mChatToolbar);
@@ -160,7 +162,7 @@ public class GroupChatActivity extends AppCompatActivity {
 //        });
 
 
-
+        mAddUserBtn = (Button) findViewById(R.id.add_users_btn);
         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
@@ -305,6 +307,15 @@ public class GroupChatActivity extends AppCompatActivity {
 
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
 
+            }
+        });
+
+        mAddUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent addUserIntent = new Intent(GroupChatActivity.this, GroupUserSearch.class);
+                addUserIntent.putExtra("groupID", mGroupID);
+                startActivity(addUserIntent);
             }
         });
 
