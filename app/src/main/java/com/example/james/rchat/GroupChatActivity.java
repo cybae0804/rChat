@@ -15,6 +15,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -164,7 +166,7 @@ public class GroupChatActivity extends AppCompatActivity {
 //        });
 
 
-        mAddUserBtn = (Button) findViewById(R.id.add_users_btn);
+//        mAddUserBtn = (Button) findViewById(R.id.add_users_btn);
         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
@@ -312,14 +314,14 @@ public class GroupChatActivity extends AppCompatActivity {
             }
         });
 
-        mAddUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                Intent addUserIntent = new Intent(GroupChatActivity.this, GroupUserSearch.class);
-                addUserIntent.putExtra("groupID", mGroupID);
-                startActivity(addUserIntent);
-            }
-        });
+//        mAddUserBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view){
+//                Intent addUserIntent = new Intent(GroupChatActivity.this, GroupUserSearch.class);
+//                addUserIntent.putExtra("groupID", mGroupID);
+//                startActivity(addUserIntent);
+//            }
+//        });
 
 
     }
@@ -459,8 +461,32 @@ public class GroupChatActivity extends AppCompatActivity {
 
                 }
             });
-
-
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.group_menu, menu);
+
+
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.add_user_to_group_menu){
+
+            Intent startGroupChat = new Intent(GroupChatActivity.this, GroupUserSearch.class );
+            startGroupChat.putExtra("groupID", mGroupID);
+            startActivity(startGroupChat);
+        }
+
+        return true;
     }
 }

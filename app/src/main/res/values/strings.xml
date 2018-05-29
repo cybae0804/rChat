@@ -26,4 +26,8 @@
     <string name="create_a_new_group">Create a New Group</string>
     <string name="create">Create</string>
     <string name="add_user">Add User</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="search">Search</string>
+    <string name="create_group">Create Group</string>
+    <string name="add_user_to_group">Add User to Group</string>
 </resources>

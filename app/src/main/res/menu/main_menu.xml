@@ -6,14 +6,13 @@
         android:id="@+id/main_settings_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="Account Settings" />
-    >
+        android:title="@string/account_settings" />
     <item
         android:id="@+id/main_search_btn"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/main_create_group_chat"
-        android:title="Create Group" />
+        android:title="@string/create_group" />
 
     <item
         android:id="@+id/main_logout_btn"
