@@ -191,7 +191,7 @@ public class GroupChatActivity extends AppCompatActivity {
         //------IMAGE STORAGE-------------
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
-        mAdapter = new MessageAdapter(messagesList);
+        mAdapter = new MessageAdapter(messagesList, this);
         mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
 
 
