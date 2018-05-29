@@ -107,17 +107,6 @@ public class GroupChatActivity extends AppCompatActivity {
 //        String userName = getIntent().getStringExtra("user_name");
         mGroupID = getIntent().getStringExtra("group_id");
         mGroupRef = mRootRef.child("GroupData").child(mGroupID);
-        mGroupRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                GroupName = dataSnapshot.child("groupName").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
@@ -128,10 +117,22 @@ public class GroupChatActivity extends AppCompatActivity {
 
         mTitleView = (TextView) findViewById(R.id.custom_bar_title);
         mLastSeenView = (TextView) findViewById(R.id.custom_bar_seen);
-        mProfileImage = (CircleImageView) findViewById(R.id.custom);
+//        mProfileImage = (CircleImageView) findViewById(R.id.custom);
 
-        mTitleView.setText(GroupName);
+
 //
+        mGroupRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                GroupName = dataSnapshot.child("groupName").getValue().toString();
+                mTitleView.setText(GroupName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 //        mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
