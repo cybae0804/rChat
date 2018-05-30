@@ -1,12 +1,16 @@
 package com.example.james.rchat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.drm.DrmStore;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -63,6 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private String mCurrentUserId;
+    private Button mVideoBtn;
 
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
@@ -75,6 +81,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private static final int GALLERY_PICK = 1;
+    static final int REQUEST_VIDEO_CAPTURE = 2;
+
 
     // Storage Firebase
     private StorageReference mImageStorage;
@@ -161,6 +169,8 @@ public class ChatActivity extends AppCompatActivity {
 
          mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
          mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+         mVideoBtn = (Button) findViewById(R.id.video_button);
+
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
         mChatMessageView.addTextChangedListener(new TextWatcher() {
@@ -306,7 +316,38 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        mVideoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
 
+                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+                if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+                }
+
+            }
+        });
+
+
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                return true;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            return true;
+        }
     }
 
     @Override
@@ -314,7 +355,7 @@ public class ChatActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
+        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK && isStoragePermissionGranted()){
 
             Uri imageUri = data.getData();
 
@@ -348,14 +389,12 @@ public class ChatActivity extends AppCompatActivity {
 
                                 Map messageMap = new HashMap();
                                 messageMap.put("message", download_uri);
-//                        messageMap.put("seen", false);
                                 if (ContentType.startsWith("image")) {
                                     messageMap.put("type", "image");
                                 } else if (ContentType.startsWith("video")){
                                     messageMap.put("type", "video");
                                 }
 
-//                        messageMap.put("time", ServerValue.TIMESTAMP);
                                 messageMap.put("from", mCurrentUserId);
 
                                 Map messageUserMap = new HashMap();
@@ -385,7 +424,60 @@ public class ChatActivity extends AppCompatActivity {
             });
 
 
+        } else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK ){
+
+            Uri imageUri = data.getData();
+
+            final String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
+            final String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
+
+            DatabaseReference user_message_push = mRootRef.child("messages")
+                    .child(mCurrentUserId).child(mChatUser).push();
+
+            final String push_id = user_message_push.getKey();
+
+            final StorageReference filepath = mImageStorage.child("message_images").child(push_id);
+
+            filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                    if (task.isSuccessful()) {
+
+                        String download_uri = task.getResult().getDownloadUrl().toString();
+
+                        Map messageMap = new HashMap();
+                        messageMap.put("message", download_uri);
+//                        messageMap.put("seen", false);
+                        messageMap.put("type", "video");
+//                        messageMap.put("time", ServerValue.TIMESTAMP);
+                        messageMap.put("from", mCurrentUserId);
+
+                        Map messageUserMap = new HashMap();
+                        messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+                        messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+
+                        mChatMessageView.setText("");
+
+                        mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                if(databaseError != null){
+
+                                    Log.d("CHAT_LOG",databaseError.getMessage().toString());
+
+                                }
+
+                            }
+                        });
+
+                    }
+                }
+            });
         }
+
+
     }
 
     private void loadMessages() {
