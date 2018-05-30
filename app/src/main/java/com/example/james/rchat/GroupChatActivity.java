@@ -3,6 +3,7 @@ package com.example.james.rchat;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,8 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.james.rchat.ChatActivity.REQUEST_VIDEO_CAPTURE;
+
 public class GroupChatActivity extends AppCompatActivity {
 
 
@@ -68,7 +71,9 @@ public class GroupChatActivity extends AppCompatActivity {
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
+    private ImageButton mGroupToMainBtn;
     private Button mAddUserBtn;
+    private Button mVideoBtn;
 
 
     private final List<Messages> messagesList = new ArrayList<>();
@@ -119,6 +124,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
         mTitleView = (TextView) findViewById(R.id.custom_bar_title);
         mLastSeenView = (TextView) findViewById(R.id.custom_bar_seen);
+        mVideoBtn = (Button) findViewById(R.id.add_video_to_group_menu);
 //        mProfileImage = (CircleImageView) findViewById(R.id.custom);
 
 
@@ -169,6 +175,7 @@ public class GroupChatActivity extends AppCompatActivity {
 //        mAddUserBtn = (Button) findViewById(R.id.add_users_btn);
         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+        mGroupToMainBtn = (ImageButton) findViewById(R.id.group_to_main_btn);
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 //        mChatMessageView.addTextChangedListener(new TextWatcher() {
@@ -301,6 +308,14 @@ public class GroupChatActivity extends AppCompatActivity {
             }
         });
 
+        mGroupToMainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent toMainIntent = new Intent(GroupChatActivity.this, MainActivity.class);
+                startActivity(toMainIntent);
+            }
+        });
+
         mChatAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -320,6 +335,17 @@ public class GroupChatActivity extends AppCompatActivity {
 //                Intent addUserIntent = new Intent(GroupChatActivity.this, GroupUserSearch.class);
 //                addUserIntent.putExtra("groupID", mGroupID);
 //                startActivity(addUserIntent);
+//            }
+//        });
+
+//        mVideoBtn.setOnClickListener(new View.OnClickListener() {
+//
+//            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//            takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//
+//
+//            if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+//                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
 //            }
 //        });
 
@@ -492,6 +518,17 @@ public class GroupChatActivity extends AppCompatActivity {
             Intent startGroupChat = new Intent(GroupChatActivity.this, GroupUserSearch.class );
             startGroupChat.putExtra("groupID", mGroupID);
             startActivity(startGroupChat);
+        }
+
+        if(item.getItemId() == R.id.add_video_to_group_menu){
+
+            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+            if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+            }
         }
 
         return true;

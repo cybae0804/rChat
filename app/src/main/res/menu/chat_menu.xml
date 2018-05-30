@@ -4,11 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/add_user_to_group_menu"
-        android:title="@string/add_user_to_group"
-        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider" />
-    <item
-        android:id="@+id/add_video_to_group_menu"
-        android:title="@string/add_video"
+        android:id="@+id/add_video_to_chat_menu"
+        android:title="Record Video"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider" />
 </menu>

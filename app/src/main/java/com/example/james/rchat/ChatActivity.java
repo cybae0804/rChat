@@ -23,6 +23,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,11 +70,11 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private String mCurrentUserId;
-    private Button mVideoBtn;
 
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
+    private ImageButton mchatToMainBtn;
 
 
     private final List<Messages> messagesList = new ArrayList<>();
@@ -169,7 +171,7 @@ public class ChatActivity extends AppCompatActivity {
 
          mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
          mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
-         mVideoBtn = (Button) findViewById(R.id.video_button);
+         mchatToMainBtn = (ImageButton) findViewById(R.id.chat_to_main_btn);
 
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
@@ -316,21 +318,13 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        mVideoBtn.setOnClickListener(new View.OnClickListener() {
+        mchatToMainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-
-                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-
-                if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-                }
-
+            public void onClick(View v) {
+                Intent toMainIntent = new Intent(ChatActivity.this, MainActivity.class);
+                startActivity(toMainIntent);
             }
         });
-
 
     }
 
@@ -569,4 +563,35 @@ public class ChatActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.chat_menu, menu);
+
+
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.add_video_to_chat_menu){
+
+            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+            if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+            }
+        }
+
+        return true;
+    }
+
 }
