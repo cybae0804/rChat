@@ -241,63 +241,6 @@ public class GroupChatActivity extends AppCompatActivity {
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
-//        mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("typing").addValueEventListener(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(DataSnapshot snapsnap){
-//                if (snapsnap.exists()) {
-//                    if (snapsnap.getValue().toString() == "true") {
-//                        mCurrentlyTyping.setText("Typing...");
-//                    } else {
-//                        mCurrentlyTyping.setText("");
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                if(!dataSnapshot.hasChild(mChatUser)){
-//
-//                    Map chatAddMap = new HashMap();
-//
-//                    chatAddMap.put("seen",false);
-//                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
-//                    chatAddMap.put("typing",false);
-//
-//                    Map chatUserMap = new HashMap();
-//                    chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser,chatAddMap);
-//                    chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId,chatAddMap);
-//
-//                    mRootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
-//                        @Override
-//                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//
-//                            if(databaseError != null){
-//
-//                                Log.d("CHAT_LOG", databaseError.getMessage().toString());
-//
-//                            }
-//
-//                        }
-//                    });
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        // need new add image button clicker
 
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
