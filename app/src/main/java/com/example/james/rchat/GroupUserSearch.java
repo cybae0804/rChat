@@ -1,5 +1,6 @@
 package com.example.james.rchat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -83,6 +85,17 @@ public class GroupUserSearch extends AppCompatActivity {
 
     }
 
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     private void firebaseUserSearch(Query SearchQuery) {
 
         FirebaseRecyclerOptions<Users> options =
@@ -120,6 +133,8 @@ public class GroupUserSearch extends AppCompatActivity {
         };
         resultList.setAdapter(adapter);
         adapter.startListening();
+        hideKeyboard(GroupUserSearch.this);
+
     }
 
 
