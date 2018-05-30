@@ -400,6 +400,13 @@ public class GroupChatActivity extends AppCompatActivity {
 
                 mAdapter.notifyDataSetChanged();
 
+                mMessagesList.postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        mMessagesList.smoothScrollToPosition(
+                                mMessagesList.getAdapter().getItemCount() - 1);
+                    }
+                }, 100);
             }
 
             @Override
