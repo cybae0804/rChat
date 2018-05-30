@@ -79,18 +79,18 @@ public class SettingsActivity extends AppCompatActivity {
 
                 if(!image.equals("default")){
 
-                    //Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mDisplayImage);
-                    Picasso.get(SettingsActivity.this).load(image).networkpolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_pic).into(mDisplayImage, new Callback() {
-
-                            @Override
-                            public void onSuccess() {
-
-                            }
-                            @Override
-                            public void onError() {
-                                Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mDisplayImage);
-                            }
-                    });
+                    Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mDisplayImage);
+//                    Picasso.get(SettingsActivity.this).load(image).networkpolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_pic).into(mDisplayImage, new Callback() {
+//
+//                            @Override
+//                            public void onSuccess() {
+//
+//                            }
+//                            @Override
+//                            public void onError() {
+//                                Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mDisplayImage);
+//                            }
+//                    });
                 }
             }
 
