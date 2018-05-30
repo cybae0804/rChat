@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +110,7 @@ public class Search extends AppCompatActivity {
             @Override
             public Search.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.users_single_layout, parent, false);
+                        .inflate(R.layout.search_layout, parent, false);
 
                 return new Search.UserViewHolder(view);
             }
@@ -117,7 +118,7 @@ public class Search extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(Search.UserViewHolder userViewHolder, int position, Users model) {
                 userViewHolder.setName(model.name);
-                userViewHolder.setStatus(model.status);
+                userViewHolder.setStatus("");
                 userViewHolder.setUserImage(model.image, getApplicationContext());
                 final String user_id = getRef(position).getKey();
                 userViewHolder.mView.setOnClickListener(new View.OnClickListener(){
@@ -147,19 +148,19 @@ public class Search extends AppCompatActivity {
         }
 
         public void setName(String name){
-            TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
+            TextView userNameView = (TextView) mView.findViewById(R.id.search_single_name);
             userNameView.setText(name);
         }
 
         public void setUserImage(String imageurl, Context ctx){
-            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.search_single_image);
             Picasso.get().load(imageurl).placeholder(R.drawable.default_pic).into(userImageView);
 
         }
 
         public void setStatus(String mStatus)
         {
-            TextView statusView = (TextView) mView.findViewById(R.id.user_single_status);
+            TextView statusView = (TextView) mView.findViewById(R.id.search_single_status);
             statusView.setText(mStatus);
         }
     }

@@ -86,7 +86,7 @@ public class GroupProfile extends AppCompatActivity {
                 String image = dataSnapshot.child("image").getValue().toString();
 
                 mProfileName.setText(display_name);
-                mProfileStatus.setText(status);
+                mProfileStatus.setText("");
 
                 Picasso.get().load(image).placeholder(R.drawable.default_pic).into(mProfileImage);
 
