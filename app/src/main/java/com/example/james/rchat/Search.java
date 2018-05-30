@@ -1,5 +1,6 @@
 package com.example.james.rchat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
@@ -11,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +86,17 @@ public class Search extends AppCompatActivity {
         String searchText = "";
         Query SearchQuery = userDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
         firebaseUserSearch(SearchQuery);
+    }
 
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void firebaseUserSearch(Query SearchQuery) {
@@ -97,7 +110,7 @@ public class Search extends AppCompatActivity {
             @Override
             public Search.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.users_single_layout, parent, false);
+                        .inflate(R.layout.search_layout, parent, false);
 
                 return new Search.UserViewHolder(view);
             }
@@ -105,7 +118,7 @@ public class Search extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(Search.UserViewHolder userViewHolder, int position, Users model) {
                 userViewHolder.setName(model.name);
-                userViewHolder.setStatus(model.status);
+                userViewHolder.setStatus("");
                 userViewHolder.setUserImage(model.image, getApplicationContext());
                 final String user_id = getRef(position).getKey();
                 userViewHolder.mView.setOnClickListener(new View.OnClickListener(){
@@ -122,6 +135,7 @@ public class Search extends AppCompatActivity {
         };
         resultList.setAdapter(adapter);
         adapter.startListening();
+        hideKeyboard(Search.this);
     }
 
 
@@ -134,19 +148,19 @@ public class Search extends AppCompatActivity {
         }
 
         public void setName(String name){
-            TextView userNameView = (TextView) mView.findViewById(R.id.user_single_name);
+            TextView userNameView = (TextView) mView.findViewById(R.id.search_single_name);
             userNameView.setText(name);
         }
 
         public void setUserImage(String imageurl, Context ctx){
-            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.user_single_image);
+            CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.search_single_image);
             Picasso.get().load(imageurl).placeholder(R.drawable.default_pic).into(userImageView);
 
         }
 
         public void setStatus(String mStatus)
         {
-            TextView statusView = (TextView) mView.findViewById(R.id.user_single_status);
+            TextView statusView = (TextView) mView.findViewById(R.id.search_single_status);
             statusView.setText(mStatus);
         }
     }

@@ -31,7 +31,8 @@ public class GroupsFragment extends Fragment {
 
     private RecyclerView mGroupsList;
 
-    private DatabaseReference mGroupsDatabase;
+    private DatabaseReference mGroupsIDDatabase;
+    private DatabaseReference mGroupsDataDatabase;
 
     private FirebaseAuth mAuth;
 
@@ -53,7 +54,8 @@ public class GroupsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mGroupsDatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(mCurrent_user_id);
+        mGroupsIDDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrent_user_id).child("Groups");
+        mGroupsDataDatabase = FirebaseDatabase.getInstance().getReference().child("GroupData");
         LinearLayoutManager linLayout = new LinearLayoutManager(getContext());
         mGroupsList.setHasFixedSize(true);
         mGroupsList.setLayoutManager(linLayout);
@@ -68,7 +70,9 @@ public class GroupsFragment extends Fragment {
     }
 
     public void groupsDisplay(){
-        Query groupsQuery = mGroupsDatabase;
+        Query groupsQuery = mGroupsIDDatabase;    //TODO modify so only group thay user is in can be viewed
+
+
 
         FirebaseRecyclerOptions<Groups> options =
                 new FirebaseRecyclerOptions.Builder<Groups>()
@@ -88,8 +92,41 @@ public class GroupsFragment extends Fragment {
             public void onBindViewHolder(final GroupsFragment.GroupsViewHolder groupsViewHolder, int position, Groups model) {
                 groupsViewHolder.setGroupName(model.groupName);
 
+                final String group_id = getRef(position).getKey();
+
+                mGroupsIDDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+
+
+                            groupsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+
+                                    Intent groupChatIntent = new Intent(getContext(), GroupChatActivity.class);
+                                    groupChatIntent.putExtra("group_id", group_id);
+                                    startActivity(groupChatIntent);
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
+
+
         };
+
+
+//        mGroupsDataDatabase.child()
+
         mGroupsList.setAdapter(adapter);
         adapter.startListening();
     }

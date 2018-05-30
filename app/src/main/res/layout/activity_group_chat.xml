@@ -14,11 +14,11 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messages_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="54dp"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="67dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,15 +58,6 @@
             android:background="#ffffff"
             app:srcCompat="@android:drawable/ic_menu_send" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/add_user"
-        android:layout_width="103dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Add User"
-        tools:text="Add User" />
 
 
 </RelativeLayout>

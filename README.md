@@ -92,6 +92,18 @@ Merged with jamesb branch:
 ## dev branch
 Trial by fire code goes here.
 
+### 5/24/2018
+
+- Groups tab has been created, does not allow clicks yet.
+
+- Recent Chats tab has been created. Does not update by the most recent messages yet. 
+
+- UI updated: Splash page is implemented. 
+
+- Currently Typing function has been implemented.
+
+- Currently online function has been implemented. Needs some polishing. 
+
 ### 5/16/2018
 
 - Picture message implemented.
