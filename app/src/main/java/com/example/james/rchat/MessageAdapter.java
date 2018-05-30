@@ -13,6 +13,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +49,7 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private DatabaseReference mUserDatabase;
     private Context context;
+    private SimpleExoPlayerView simpleExoPlayerView;
 
     public MessageAdapter(List<Messages> mMessageList, Context x) {
         this.mMessageList = mMessageList;
@@ -67,7 +84,9 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
 //            timeText = (TextView) view.findViewById(R.id.message_item_time);
             profileImage = (CircleImageView) view.findViewById(R.id.user_single_image);
             messageImage = (ImageView) view.findViewById(R.id.message_image_layout);
-            messageVideo = (VideoView) view.findViewById(R.id.message_video_layout);
+//            messageVideo = (VideoView) view.findViewById(R.id.message_video_layout);
+            simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.exoplayer);
+
         }
     }
 
@@ -117,35 +136,69 @@ public class MessageAdapter  extends  RecyclerView.Adapter<MessageAdapter.Messag
         if(message_type.equals("text")) {
 
             viewHolder.messageImage.setVisibility(View.GONE);
-            viewHolder.messageVideo.setVisibility(View.GONE);
+            simpleExoPlayerView.setVisibility(View.GONE);
             viewHolder.messageText.setVisibility(View.VISIBLE);
             viewHolder.messageText.setText(c.getMessage());
 
         } else if (message_type.equals("image")) {
             viewHolder.messageText.setVisibility(View.GONE);
-            viewHolder.messageVideo.setVisibility(View.GONE);
+            simpleExoPlayerView.setVisibility(View.GONE);
             viewHolder.messageImage.setVisibility(View.VISIBLE);
             Picasso.get().load(c.getMessage())
                     .placeholder(R.drawable.default_pic).into(viewHolder.messageImage);
         } else if (message_type.equals("video")){
             viewHolder.messageImage.setVisibility(View.GONE);
             viewHolder.messageText.setVisibility(View.GONE);
-            viewHolder.messageVideo.setVisibility(View.VISIBLE);
-
-            MediaController mediaController = new MediaController(context);
-            mediaController.setAnchorView(viewHolder.messageVideo);
-            viewHolder.messageVideo.setMediaController(mediaController);
-
+//            viewHolder.messageVideo.setVisibility(View.VISIBLE);
+//
+//            MediaController mediaController = new MediaController(context);
+//            mediaController.setAnchorView(viewHolder.messageVideo);
+//            viewHolder.messageVideo.setMediaController(mediaController);
+//
             String path = c.getMessage();
             Uri uri = Uri.parse(path);
-            viewHolder.messageVideo.setVideoURI(uri);
-            viewHolder.messageVideo.start();
+//            viewHolder.messageVideo.setVideoURI(uri);
+//            viewHolder.messageVideo.start();
+
+
+                // Create a default TrackSelector
+                BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+                TrackSelection.Factory videoTrackSelectionFactory =
+                        new AdaptiveTrackSelection.Factory(bandwidthMeter);
+                TrackSelector trackSelector =
+                        new DefaultTrackSelector(videoTrackSelectionFactory);
+
+                //Initialize the player
+                SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
+
+                //Initialize simpleExoPlayerView
+                simpleExoPlayerView.setPlayer(player);
+
+                // Produces DataSource instances through which media data is loaded.
+                DataSource.Factory dataSourceFactory =
+                        new DefaultDataSourceFactory(context, Util.getUserAgent(context, "CloudinaryExoplayer"));
+
+                // Produces Extractor instances for parsing the media data.
+                ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+                // This is the MediaSource representing the media to be played.
+                MediaSource videoSource = new ExtractorMediaSource(uri,
+                        dataSourceFactory, extractorsFactory, null, null);
+
+                // Prepare the player with the source.
+                player.prepare(videoSource);
+
+            simpleExoPlayerView.setVisibility(View.VISIBLE);
+            simpleExoPlayerView.requestFocus();
+
         }
     }
+
 
     @Override
     public int getItemCount() {
         return mMessageList.size();
     }
+
 
 }
