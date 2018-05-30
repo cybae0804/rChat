@@ -322,6 +322,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent toMainIntent = new Intent(ChatActivity.this, MainActivity.class);
+                finish();
                 startActivity(toMainIntent);
             }
         });

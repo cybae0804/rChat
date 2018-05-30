@@ -312,6 +312,7 @@ public class GroupChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent toMainIntent = new Intent(GroupChatActivity.this, MainActivity.class);
+                finish();
                 startActivity(toMainIntent);
             }
         });
