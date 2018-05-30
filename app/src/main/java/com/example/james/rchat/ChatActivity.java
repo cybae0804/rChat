@@ -139,8 +139,6 @@ public class ChatActivity extends AppCompatActivity {
                     String lastSeenTime = getTimeAgo.getTimeAgo(lastTime, getApplicationContext());
 
                     mLastSeenView.setText(lastSeenTime);
-
-//                    mLastSeenView.setText(online);
                 }
 
             }
@@ -294,7 +292,6 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        // need new add image button clicker
 
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,9 +351,6 @@ public class ChatActivity extends AppCompatActivity {
 
             Uri imageUri = data.getData();
 
-            //added
-            //Uri videoUri = data.getData();
-
             final String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
             final String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
 
@@ -366,9 +360,6 @@ public class ChatActivity extends AppCompatActivity {
             final String push_id = user_message_push.getKey();
 
             final StorageReference filepath = mImageStorage.child("message_images").child(push_id);
-            //added
-            //StorageReference vidFilepath = mVideoStorage.child("message_videos").child(push_id + ".mp4 ");
-
 
             filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -395,6 +386,8 @@ public class ChatActivity extends AppCompatActivity {
                                 Map messageUserMap = new HashMap();
                                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
                                 messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+                                messageUserMap.put("timestamp", ServerValue.TIMESTAMP);
+
 
                                 mChatMessageView.setText("");
 
@@ -443,9 +436,8 @@ public class ChatActivity extends AppCompatActivity {
 
                         Map messageMap = new HashMap();
                         messageMap.put("message", download_uri);
-//                        messageMap.put("seen", false);
                         messageMap.put("type", "video");
-//                        messageMap.put("time", ServerValue.TIMESTAMP);
+                        messageMap.put("timestamp", ServerValue.TIMESTAMP);
                         messageMap.put("from", mCurrentUserId);
 
                         Map messageUserMap = new HashMap();
