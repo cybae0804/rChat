@@ -6,7 +6,8 @@
         android:id="@+id/main_settings_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="@string/account_settings" />
+        android:title="@string/account_settings"
+        android:visible="false" />
     <item
         android:id="@+id/main_search_btn"
         android:title="@string/search" />
