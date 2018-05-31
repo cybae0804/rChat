@@ -330,8 +330,6 @@ public class ChatActivity extends AppCompatActivity {
             final String push_id = user_message_push.getKey();
 
             final StorageReference filepath = mImageStorage.child("message_images").child(push_id);
-            //added
-            //StorageReference vidFilepath = mVideoStorage.child("message_videos").child(push_id + ".mp4 ");
 
 
             filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
