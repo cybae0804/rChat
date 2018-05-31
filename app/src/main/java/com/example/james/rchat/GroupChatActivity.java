@@ -227,13 +227,13 @@ public class GroupChatActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
+        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK && isStoragePermissionGranted()){
 
             Uri imageUri = data.getData();
 
             final String current_user_ref = "messages/";
 
-            DatabaseReference user_message_push = mRootRef.child("messages").push();
+            DatabaseReference user_message_push = mGroupRef.child("messages").push();
 
             final String push_id = user_message_push.getKey();
 
@@ -267,7 +267,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
                                 mChatMessageView.setText("");
 
-                                mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                                mGroupRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
@@ -290,7 +290,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
             final String current_user_ref = "messages/";
 
-            DatabaseReference user_message_push = mRootRef.child("messages").push();
+            DatabaseReference user_message_push = mGroupRef.child("messages").push();
 
             final String push_id = user_message_push.getKey();
 
@@ -315,7 +315,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
                         mChatMessageView.setText("");
 
-                        mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                        mGroupRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
