@@ -30,4 +30,7 @@
     <string name="search">Search</string>
     <string name="create_group">Create Group</string>
     <string name="add_user_to_group">Add User to Group</string>
+    <string name="create_topic">Create Topic</string>
+    <string name="new_topic">Create a New Topic</string>
+    <string name="add_user_to_topic">Add User to Topic</string>
 </resources>

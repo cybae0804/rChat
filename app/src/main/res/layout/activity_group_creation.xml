@@ -7,7 +7,7 @@
     tools:context=".GroupCreationActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/create_topic_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2"
+        android:layout_alignStart="@+id/create_topic_textview"
         android:layout_marginTop="54dp">
 
         <android.support.design.widget.TextInputEditText
