@@ -360,10 +360,6 @@ public class ChatActivity extends AppCompatActivity {
             final String push_id = user_message_push.getKey();
 
             final StorageReference filepath = mImageStorage.child("message_images").child(push_id);
-<<<<<<< HEAD
-
-=======
->>>>>>> CynusInfection
 
             filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
