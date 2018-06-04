@@ -201,6 +201,8 @@ public class ChatsFragment extends Fragment {
         }
 
         public void setText(String message, boolean seen) {
+            TextView messageView = (TextView) mView.findViewById(R.id.user_single_status);
+            messageView.setText(message);
 //
 //            if (!seen) {
 //                messageView.setTypeface(messageView.getTypeface(), Typeface.BOLD);

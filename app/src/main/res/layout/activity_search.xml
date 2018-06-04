@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Search"
-    android:background="#ced5e0">
+    tools:context=".Search">
 
     <TextView
         android:id="@+id/Search_User"
@@ -16,8 +15,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="Search User"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorAccent"
         android:textSize="30dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="24dp" />
@@ -60,7 +58,7 @@
         android:layout_alignStart="@+id/Search_User"
         android:layout_marginTop="60dp"
         android:text="Search by User Name"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorAccent"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="59dp" />
 
@@ -72,7 +70,7 @@
         android:layout_alignStart="@+id/Search_User"
         android:layout_marginTop="140dp"
         android:text="Search by Email"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorAccent"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="173dp" />
 
