@@ -123,18 +123,6 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
         }
 
-<<<<<<< HEAD
-        //if(item.getItemId... etc (stuff from previous tutorials
-
-        if(item.getItemId() == R.id.main_all_btn) {
-
-            Intent settingsIntent = new Intent( MainActivity.this, UsersActivity.class);
-            startActivity(settingsIntent);
-
-        }
-
-
-=======
 //        if(item.getItemId() == R.id.view_group_chats){
 //            Intent groupCreationIntent = new Intent(MainActivity.this, GroupUserSearch.class);
 //            groupCreationIntent.putExtra("groupID", "-LDcaHgFy1FNxw8fxZYO");
@@ -152,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(searchIntent);
 
         }
->>>>>>> eacecfc85ae0ee5c103b48a2de1c7e9ececaf1a1
 
         return true;
     }

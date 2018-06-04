@@ -28,10 +28,6 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-<<<<<<< HEAD
-        <activity android:name=".UsersActivity"
-            android:parentActivityName=".MainActivity"></activity>
-=======
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
@@ -46,7 +42,6 @@
         <activity android:name=".GroupCreationActivity" />
         <activity android:name=".GroupUserSearch" />
         <activity android:name=".GroupProfile" />
->>>>>>> eacecfc85ae0ee5c103b48a2de1c7e9ececaf1a1
     </application>
 
 </manifest>
