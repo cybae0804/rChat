@@ -118,7 +118,6 @@ public class Search extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(Search.UserViewHolder userViewHolder, int position, Users model) {
                 userViewHolder.setName(model.name);
-                userViewHolder.setStatus("");
                 userViewHolder.setUserImage(model.image, getApplicationContext());
                 final String user_id = getRef(position).getKey();
                 userViewHolder.mView.setOnClickListener(new View.OnClickListener(){
@@ -156,12 +155,6 @@ public class Search extends AppCompatActivity {
             CircleImageView userImageView = (CircleImageView) mView.findViewById(R.id.search_single_image);
             Picasso.get().load(imageurl).placeholder(R.drawable.default_pic).into(userImageView);
 
-        }
-
-        public void setStatus(String mStatus)
-        {
-            TextView statusView = (TextView) mView.findViewById(R.id.search_single_status);
-            statusView.setText(mStatus);
         }
     }
 }

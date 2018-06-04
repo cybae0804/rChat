@@ -21,20 +21,9 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="99dp"
         android:text="@string/singledisplayname"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/search_single_status"
-        android:layout_width="93dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_single_name"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/user_single_image"
-        android:maxLines="1"
-        android:minLines="1"
-        android:text="@string/singlestatus" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <ImageView
         android:id="@+id/user_single_online_icon"
