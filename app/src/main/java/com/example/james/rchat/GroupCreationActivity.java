@@ -36,6 +36,7 @@ public class GroupCreationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private TextInputLayout mGroupName;
+    private TextInputLayout mGroupTopic;
     private Button button;
 
     private ProgressDialog mRegProgress;
@@ -73,17 +74,19 @@ public class GroupCreationActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button_create_group);   //get button id
         mGroupName = (TextInputLayout) findViewById(R.id.input_group_name);     //get text box id
+        mGroupTopic = (TextInputLayout) findViewById(R.id.input_group_topic);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 String name = mGroupName.getEditText().getText().toString();
-                register_group(name);
+                String topic = mGroupTopic.getEditText().getText().toString();
+                register_group(name,topic);
             }
         });
     }
 
-    private void register_group(String group_name){
+    private void register_group(String group_name, String group_topic){
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = mDatabaseRef.child("Groups" + mCurrentUserId);
         DatabaseReference groupRef = userRef.push();
@@ -92,6 +95,7 @@ public class GroupCreationActivity extends AppCompatActivity {
         mDatabaseRef.child("Users").child(userID).child("Groups").child(key).child("groupID").setValue(key);
         mDatabaseRef.child("Users").child(userID).child("Groups").child(key).child("groupName").setValue(group_name);
         mDatabaseRef.child("GroupData").child(key).child("groupName").setValue(group_name);
+        mDatabaseRef.child("GroupData").child(key).child("groupTopic").setValue(group_topic);
         mDatabaseRef.child("GroupData").child(key).child("Recipients").child(userID).setValue(userName);
 
         //String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID

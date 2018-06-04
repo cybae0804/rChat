@@ -45,6 +45,8 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +61,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private String mChatUser;
     private String GroupName;
+    private String GroupTopic;
     private String ContentType;
 
     private Toolbar mChatToolbar;
@@ -67,6 +70,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private DatabaseReference mGroupRef;
 
     private TextView mTitleView;
+    private TextView mTopicView;
     private TextView mLastSeenView;
     private TextView mCurrentlyTyping;
     private CircleImageView mProfileImage;
@@ -120,6 +124,7 @@ public class GroupChatActivity extends AppCompatActivity {
         // Custom Action Bar Items
 
         mTitleView = (TextView) findViewById(R.id.custom_bar_title);
+        mTopicView = (TextView) findViewById(R.id.custom_group_topic);
         mLastSeenView = (TextView) findViewById(R.id.custom_bar_seen);
         mVideoBtn = (Button) findViewById(R.id.add_video_to_group_menu);
 
@@ -127,7 +132,11 @@ public class GroupChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GroupName = dataSnapshot.child("groupName").getValue().toString();
-                mTitleView.setText(GroupName);
+                if(dataSnapshot.child("groupTopic").exists()) {
+                    GroupTopic = dataSnapshot.child("groupTopic").getValue().toString();
+                    mTopicView.setText(GroupTopic);
+                }
+                    mTitleView.setText(GroupName);
             }
 
             @Override

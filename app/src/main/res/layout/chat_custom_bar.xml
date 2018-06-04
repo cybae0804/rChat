@@ -16,6 +16,17 @@
         android:textSize="24sp" />
 
     <TextView
+        android:id="@+id/custom_group_topic"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/custom_bar_title"
+        android:maxLines="1"
+        android:paddingTop="15dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@+id/custom_bar_seen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
