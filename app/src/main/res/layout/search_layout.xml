@@ -21,6 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="99dp"
         android:text="@string/singledisplayname"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:textStyle="bold" />
 
