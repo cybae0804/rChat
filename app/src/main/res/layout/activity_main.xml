@@ -7,15 +7,21 @@
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayoutm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include  layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar" />
+        <include
+            android:id="@+id/main_page_toolbar"
+            layout="@layout/app_bar_layout" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/main_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabTextColor="#bababa">
 
 
         </android.support.design.widget.TabLayout>
@@ -26,9 +32,11 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/main_tabPager"
         android:layout_width="match_parent"
-        android:layout_height="541dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/appbarlayoutm"
+        android:layout_toEndOf="@id/appbarlayoutm">
 
     </android.support.v4.view.ViewPager>
 

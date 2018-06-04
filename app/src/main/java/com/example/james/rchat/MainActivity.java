@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private DatabaseReference mUserRef;
 
     private TabLayout mTabLayout;
 
@@ -31,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setTitle("Rchat");
+        getSupportActionBar().setTitle("rChat");
+
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
 
         //Tabs
@@ -42,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-
+        TabLayout.Tab tab = mTabLayout.getTabAt(1);
+        tab.select();
 
     }
 
@@ -56,7 +64,25 @@ public class MainActivity extends AppCompatActivity {
 
             sendToStart();
 
+        }else{
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+            mUserRef.child("online").setValue("true");
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null){
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+        }
+
     }
 
     private void sendToStart(){
@@ -83,12 +109,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        if(item.getItemId() == R.id.main_create_group_chat){
+
+            Intent startGroupChat = new Intent(MainActivity.this, GroupCreationActivity.class );
+            startActivity(startGroupChat);
+        }
+
         if(item.getItemId() == R.id.main_logout_btn){
+
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
 
             FirebaseAuth.getInstance().signOut();
             sendToStart();
         }
 
+<<<<<<< HEAD
         //if(item.getItemId... etc (stuff from previous tutorials
 
         if(item.getItemId() == R.id.main_all_btn) {
@@ -99,6 +134,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+=======
+//        if(item.getItemId() == R.id.view_group_chats){
+//            Intent groupCreationIntent = new Intent(MainActivity.this, GroupUserSearch.class);
+//            groupCreationIntent.putExtra("groupID", "-LDcaHgFy1FNxw8fxZYO");
+//            startActivity(groupCreationIntent);
+//        }
+
+        if(item.getItemId() == R.id.main_settings_btn){
+
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        }
+        if(item.getItemId() == R.id.main_search_btn){
+
+            Intent searchIntent = new Intent(MainActivity.this, Search.class);
+            startActivity(searchIntent);
+
+        }
+>>>>>>> eacecfc85ae0ee5c103b48a2de1c7e9ececaf1a1
 
         return true;
     }

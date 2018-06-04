@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/main_settings_btn"
-        android:title="Account Settings" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/account_settings" />
     <item
-        android:id="@+id/main_all_btn"
-        android:title="All Users" />
+        android:id="@+id/main_search_btn"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/main_create_group_chat"
+        android:title="@string/create_group" />
+
     <item
         android:id="@+id/main_logout_btn"
         android:title="@string/log_out" />
+
 </menu>

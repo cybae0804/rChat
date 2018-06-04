@@ -15,6 +15,46 @@
       },
       "oauth_client": [
         {
+          "client_id": "880768211485-lmcua0h6be912t5lj7p0jfpk6d6rd206.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "68587413f3331e1d1f3ecf71445c8e0a8fe6d3ab"
+          }
+        },
+        {
+          "client_id": "880768211485-ajjhtegvd6hup3iritjkdl96jst8g7un.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "a094c8a8129acf381b8cc9bcaa80b784a432181f"
+          }
+        },
+        {
+          "client_id": "880768211485-gfqqb80qkqbq7p4635dhb0t6onnbtq5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "8cd1df5600a6844c8cde7410f1282a6d942a21bf"
+          }
+        },
+        {
+          "client_id": "880768211485-8om6rg9ln6m29m71t0hu27eq6vrv5gv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "928e684a0cf878a8966e1ce78c098d9020e5a06a"
+          }
+        },
+        {
+          "client_id": "880768211485-v4enciass75a5cdsc4utc88fquq1d3oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.james.rchat",
+            "certificate_hash": "2559bba2418ec7ce20deaec68d95e6527b2b77cc"
+          }
+        },
+        {
           "client_id": "880768211485-nmp7s1e1do89jsfs0bone6kffbdj6ae8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
