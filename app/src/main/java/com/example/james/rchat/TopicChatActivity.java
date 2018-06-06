@@ -393,6 +393,10 @@ public class TopicChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        if (item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+
         if(item.getItemId() == R.id.add_user_to_topic_menu){
 
             Intent startTopicChat = new Intent(TopicChatActivity.this, TopicUserSearch.class );

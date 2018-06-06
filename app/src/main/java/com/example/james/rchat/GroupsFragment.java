@@ -130,7 +130,7 @@ public class GroupsFragment extends Fragment {
         mGroupsList.setAdapter(adapter);
         adapter.startListening();
     }
-
+    
     public static class GroupsViewHolder extends RecyclerView.ViewHolder {
         View mView;
         public GroupsViewHolder(View itemView) {

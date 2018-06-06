@@ -189,6 +189,7 @@ public class GroupChatActivity extends AppCompatActivity {
 //        });
 
         //------IMAGE STORAGE-------------
+
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
         mAdapter = new MessageAdapter(messagesList, this);
@@ -486,6 +487,10 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
 
         if(item.getItemId() == R.id.add_user_to_group_menu){
 
