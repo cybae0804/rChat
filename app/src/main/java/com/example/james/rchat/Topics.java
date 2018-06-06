@@ -10,7 +10,7 @@ public class Topics {
         return topicName;
     }
 
-    public void setTopicName(String groupName) {
+    public void setTopicName(String topicName) {
         this.topicName = topicName;
     }
 

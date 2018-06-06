@@ -1,10 +1,12 @@
 package com.example.james.rchat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,6 +69,7 @@ public class TopicChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private String mCurrentUserId;
+    private String descriptionText;
 
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
@@ -130,6 +133,7 @@ public class TopicChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TopicName = dataSnapshot.child("topicName").getValue().toString();
+                descriptionText = dataSnapshot.child("Description").getValue().toString();
                 mTitleView.setText(TopicName);
             }
 
@@ -138,58 +142,11 @@ public class TopicChatActivity extends AppCompatActivity {
 
             }
         });
-//        mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                String online = dataSnapshot.child("online").getValue().toString();
-//                String image = dataSnapshot.child("image").getValue().toString();
-//
-//                if(online.equals("true")){
-//                    mLastSeenView.setText("Online");
-//                }else{
-//
-//                    GetTimeAgo getTimeAgo = new GetTimeAgo();
-//
-//                    long lastTime = Long.parseLong(online);
-//
-//                    String lastSeenTime = getTimeAgo.getTimeAgo(lastTime, getApplicationContext());
-//
-//                    mLastSeenView.setText(lastSeenTime);
-//
-////                    mLastSeenView.setText(online);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
-
-//        mAddUserBtn = (Button) findViewById(R.id.add_users_btn);
         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
-//        mChatMessageView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (TextUtils.isEmpty(s)) {
-//                    mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("typing").setValue(false);
-//                } else {
-//                    mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("typing").setValue(true);
-//                }
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {}
-//        });
 
         //------IMAGE STORAGE-------------
         mImageStorage = FirebaseStorage.getInstance().getReference();
@@ -237,63 +194,6 @@ public class TopicChatActivity extends AppCompatActivity {
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
-//        mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("typing").addValueEventListener(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(DataSnapshot snapsnap){
-//                if (snapsnap.exists()) {
-//                    if (snapsnap.getValue().toString() == "true") {
-//                        mCurrentlyTyping.setText("Typing...");
-//                    } else {
-//                        mCurrentlyTyping.setText("");
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                if(!dataSnapshot.hasChild(mChatUser)){
-//
-//                    Map chatAddMap = new HashMap();
-//
-//                    chatAddMap.put("seen",false);
-//                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
-//                    chatAddMap.put("typing",false);
-//
-//                    Map chatUserMap = new HashMap();
-//                    chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser,chatAddMap);
-//                    chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId,chatAddMap);
-//
-//                    mRootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
-//                        @Override
-//                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//
-//                            if(databaseError != null){
-//
-//                                Log.d("CHAT_LOG", databaseError.getMessage().toString());
-//
-//                            }
-//
-//                        }
-//                    });
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        // need new add image button clicker
 
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -498,6 +398,19 @@ public class TopicChatActivity extends AppCompatActivity {
             Intent startTopicChat = new Intent(TopicChatActivity.this, TopicUserSearch.class );
             startTopicChat.putExtra("topicID", mTopicID);
             startActivity(startTopicChat);
+        } else if (item.getItemId() == R.id.topic_description){
+
+            AlertDialog alertDialog = new AlertDialog.Builder(TopicChatActivity.this).create();
+            alertDialog.setTitle("Description");
+            alertDialog.setMessage(descriptionText);
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
 
         return true;

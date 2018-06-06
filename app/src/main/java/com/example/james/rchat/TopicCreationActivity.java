@@ -36,6 +36,7 @@ public class TopicCreationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private TextInputLayout mTopicName;
+    private TextInputLayout mDescription;
     private Button button;
 
     private ProgressDialog mRegProgress;
@@ -73,17 +74,20 @@ public class TopicCreationActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button_create_topic);   //get button id
         mTopicName = (TextInputLayout) findViewById(R.id.input_topic_name);     //get text box id
+        mDescription = (TextInputLayout) findViewById(R.id.input_description);     //get text box id
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 String name = mTopicName.getEditText().getText().toString();
-                register_topic(name);
+                String description = mDescription.getEditText().getText().toString();
+                register_topic(name, description);
             }
         });
     }
 
-    private void register_topic(String topic_name){
+    private void register_topic(String topic_name, String description){
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = mDatabaseRef.child("Topics" + mCurrentUserId);
         DatabaseReference topicRef = userRef.push();
@@ -92,6 +96,7 @@ public class TopicCreationActivity extends AppCompatActivity {
         mDatabaseRef.child("Users").child(userID).child("Topics").child(key).child("topicID").setValue(key);
         mDatabaseRef.child("Users").child(userID).child("Topics").child(key).child("topicName").setValue(topic_name);
         mDatabaseRef.child("TopicData").child(key).child("topicName").setValue(topic_name);
+        mDatabaseRef.child("TopicData").child(key).child("Description").setValue(description);
         mDatabaseRef.child("TopicData").child(key).child("Recipients").child(userID).setValue(userName);
 
         //String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID
