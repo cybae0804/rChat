@@ -16,10 +16,14 @@ class SectionsPagerAdapter extends FragmentPagerAdapter{
 
         switch(position) {
             case 0:
+                TopicsFragment topicsFragment = new TopicsFragment();
+                return topicsFragment;
+
+            case 1:
                 GroupsFragment groupsFragment = new GroupsFragment();
                 return groupsFragment;
 
-            case 1:
+            case 2:
                 ChatsFragment chatsFragment = new ChatsFragment();
                 return chatsFragment;
 
@@ -30,16 +34,19 @@ class SectionsPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     public CharSequence getPageTitle(int position){
 
         switch(position) {
             case 0:
-                return "GROUPS";
+                return "TOPICS";
 
             case 1:
+                return "GROUPS";
+
+            case 2:
                 return "CHATS";
 
             default:
