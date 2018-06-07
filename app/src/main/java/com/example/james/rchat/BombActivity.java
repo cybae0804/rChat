@@ -40,6 +40,7 @@ package com.example.james.rchat;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ServerValue;
         import com.google.firebase.database.ValueEventListener;
+        import com.google.firebase.firestore.ServerTimestamp;
         import com.google.firebase.storage.FirebaseStorage;
         import com.google.firebase.storage.StorageMetadata;
         import com.google.firebase.storage.StorageReference;
@@ -85,6 +86,8 @@ public class BombActivity extends AppCompatActivity {
     private final List<Messages> bombmessagesList = new ArrayList<>();
     private MessageAdapter mAdapter;
     private RecyclerView mbombMessagesList;
+    private long starting;
+    private long ending;
 
 
     private static final int GALLERY_PICK = 1;
@@ -128,6 +131,9 @@ public class BombActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BombName = dataSnapshot.child("bombName").getValue().toString();
                 mTitleView.setText(BombName);
+                starting = (long) dataSnapshot.child("start").getValue();
+                ending = (long) dataSnapshot.child("end").getValue();
+
             }
 
             @Override
@@ -193,9 +199,16 @@ public class BombActivity extends AppCompatActivity {
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            if (System.currentTimeMillis() / 1000 < starting){
+                Toast.makeText(BombActivity.this, "Chat hasn't started yet!",
+                        Toast.LENGTH_LONG).show();
+            } else if (System.currentTimeMillis() / 1000 > ending){
+                Toast.makeText(BombActivity.this, "Chat has already ended!",
+                        Toast.LENGTH_LONG).show();
+            } else {
                 sendMessage();
                 mbombMessagesList.smoothScrollToPosition(mbombMessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
+            }
             }
         });
 
