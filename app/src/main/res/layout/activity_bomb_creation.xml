@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/create_topic_textview"
+        android:layout_alignStart="@+id/create_bomb_textview2"
         android:layout_marginTop="54dp">
 
         <android.support.design.widget.TextInputEditText
@@ -44,5 +44,40 @@
             android:layout_height="wrap_content" />
 
     </android.support.design.widget.TextInputLayout>
+
+    <CalendarView
+        android:id="@+id/startCalendar"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_create_bomb"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
+
+    <CalendarView
+        android:id="@+id/endCalendar"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_create_bomb"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/startdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/create_bomb_textview2"
+        android:layout_alignTop="@+id/button_create_bomb"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/set_start"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/enddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button_create_bomb"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/set_end"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

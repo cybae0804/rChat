@@ -37,4 +37,6 @@
     <string name="read_description">Read Description</string>
     <string name="record_video">Record Video</string>
     <string name="add_user_to_bomb">Add User to Bomb</string>
+    <string name="set_start">Set Start</string>
+    <string name="set_end">Set End</string>
 </resources>
