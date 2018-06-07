@@ -129,17 +129,28 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(groupCreationIntent);
 //        }
 
-        if(item.getItemId() == R.id.main_settings_btn){
+        if(item.getItemId() == R.id.main_create_topic_btn){
+            Intent startTopicChat = new Intent(MainActivity.this, TopicCreationActivity.class );
+            startActivity(startTopicChat);
+        }
 
+        if(item.getItemId() == R.id.main_settings_btn){
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(settingsIntent);
         }
         if(item.getItemId() == R.id.main_search_btn){
-
             Intent searchIntent = new Intent(MainActivity.this, Search.class);
             startActivity(searchIntent);
-
         }
+        if(item.getItemId() == R.id.main_create_bomb_btn){
+            Intent searchIntent = new Intent(MainActivity.this, BombCreationActivity.class);
+            startActivity(searchIntent);
+        }
+        if(item.getItemId() == R.id.main_bombarchive_menu_btn){
+            Intent searchIntent = new Intent(MainActivity.this, BombArchive.class);
+            startActivity(searchIntent);
+        }
+
 
         return true;
     }

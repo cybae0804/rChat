@@ -38,6 +38,19 @@ APK file is under /app/build/outputs/apk/debug
 ## master branch
 Tested and true code goes here.
 
+
+### 5/31/2018
+
+- Group message implemented.
+
+- Video messaging implemented with stored videos and captured videos. 
+
+- Logo added.
+
+- Currently typing / Currently online
+
+
+
 ### 5/16/2018
 
 - Picture message implemented.

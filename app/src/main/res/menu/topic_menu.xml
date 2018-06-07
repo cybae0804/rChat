@@ -4,11 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/add_user_to_group_menu"
-        android:title="@string/add_user_to_group"
+        android:id="@+id/topic_description"
+        android:title="@string/read_description"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider" />
+
     <item
-        android:id="@+id/add_video_to_group_menu"
-        android:title="@string/record_video"
+        android:id="@+id/add_user_to_topic_menu"
+        android:title="@string/add_user_to_topic"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider" />
 </menu>

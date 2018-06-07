@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccccc"
-    tools:context=".ChatActivity">
+    tools:context=".BombActivity">
+
 
     <include
         android:id="@+id/chat_app__bar"
         layout="@layout/app_bar_layout" />
 
     <ImageButton
-        android:id="@+id/group_to_main_btn"
+        android:id="@+id/bomb_to_main_btn"
         android:layout_width="54dp"
         android:layout_height="53dp"
         android:background="@color/colorPrimaryDark"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/custom_back_icon" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/messages_list"
+        android:id="@+id/bombmessages_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -38,7 +38,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/chat_add_btn"
+            android:id="@+id/bomb_add_btn"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:layout_weight="1"
@@ -46,7 +46,7 @@
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <EditText
-            android:id="@+id/chat_message_view"
+            android:id="@+id/bomb_message_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="8"
@@ -60,7 +60,7 @@
             android:paddingTop="16dp" />
 
         <ImageButton
-            android:id="@+id/chat_send_btn"
+            android:id="@+id/bomb_send_btn"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:layout_weight="1"
