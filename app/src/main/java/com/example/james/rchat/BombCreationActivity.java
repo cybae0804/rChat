@@ -154,7 +154,8 @@ public class BombCreationActivity extends AppCompatActivity {
 //            }
 //        });
         } else {
-            
+            Toast.makeText(BombCreationActivity.this, "Start Date has to be earlier than the End Date!",
+                    Toast.LENGTH_LONG).show();
         }
     }
 }
