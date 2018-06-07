@@ -74,6 +74,7 @@ public class TopicChatActivity extends AppCompatActivity {
     private EditText mChatMessageView;
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
+    private ImageButton mTopicToMainBtn;
     private Button mAddUserBtn;
 
 
@@ -145,6 +146,7 @@ public class TopicChatActivity extends AppCompatActivity {
 
         mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+        mTopicToMainBtn = (ImageButton) findViewById(R.id.topic_to_main_btn);
         mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
@@ -201,6 +203,15 @@ public class TopicChatActivity extends AppCompatActivity {
 
                 sendMessage();
                 mMessagesList.smoothScrollToPosition(mMessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
+            }
+        });
+
+        mTopicToMainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent toMainIntent = new Intent(TopicChatActivity.this, MainActivity.class);
+                finish();
+                startActivity(toMainIntent);
             }
         });
 
