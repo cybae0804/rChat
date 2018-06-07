@@ -31,9 +31,10 @@
     <string name="create_group">Create Group</string>
     <string name="add_user_to_group">Add User to Group</string>
     <string name="add_video">Add Video</string>
-    <string name="record_video">Record Video</string>
     <string name="create_topic">Create Topic</string>
     <string name="new_topic">Create a New Topic</string>
     <string name="add_user_to_topic">Add User to Topic</string>
     <string name="read_description">Read Description</string>
+    <string name="record_video">Record Video</string>
+    <string name="add_user_to_bomb">Add User to Bomb</string>
 </resources>
