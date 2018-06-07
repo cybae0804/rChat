@@ -146,6 +146,10 @@ public class MainActivity extends AppCompatActivity {
             Intent searchIntent = new Intent(MainActivity.this, BombCreationActivity.class);
             startActivity(searchIntent);
         }
+        if(item.getItemId() == R.id.main_bombarchive_menu_btn){
+            Intent searchIntent = new Intent(MainActivity.this, BombArchive.class);
+            startActivity(searchIntent);
+        }
 
 
         return true;

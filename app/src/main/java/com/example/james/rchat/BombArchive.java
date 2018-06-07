@@ -54,7 +54,7 @@ package com.example.james.rchat;
 
         import static com.example.james.rchat.ChatActivity.REQUEST_VIDEO_CAPTURE;
 
-public class BombActivity extends AppCompatActivity {
+public class BombArchive extends AppCompatActivity {
 
 
     private String mChatUser;
@@ -82,9 +82,9 @@ public class BombActivity extends AppCompatActivity {
     private Button mVideoBtn;
 
 
-    private final List<Messages> bombmessagesList = new ArrayList<>();
+    private final List<Messages> bombarchivemessagesList = new ArrayList<>();
     private MessageAdapter mAdapter;
-    private RecyclerView mbombMessagesList;
+    private RecyclerView mbombarchivemessagesList;
 
 
     private static final int GALLERY_PICK = 1;
@@ -96,7 +96,7 @@ public class BombActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bomb);
+        setContentView(R.layout.activity_bomb_archive);
 
         mChatToolbar = (Toolbar) findViewById(R.id.chat_app__bar);
         setSupportActionBar(mChatToolbar);
@@ -136,36 +136,36 @@ public class BombActivity extends AppCompatActivity {
             }
         });
 
-        mChatAddBtn = (ImageButton) findViewById(R.id.bomb_add_btn);
-        mChatSendBtn = (ImageButton) findViewById(R.id.bomb_send_btn);
-        mBombToMainBtn = (ImageButton) findViewById(R.id.bomb_to_main_btn);
-        mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
-        mChatMessageView = (EditText) findViewById(R.id.bomb_message_view);
+//        mChatAddBtn = (ImageButton) findViewById(R.id.bomb_add_btn);
+//        mChatSendBtn = (ImageButton) findViewById(R.id.bomb_send_btn);
+//        mBombToMainBtn = (ImageButton) findViewById(R.id.bomb_to_main_btn);
+//        mCurrentlyTyping = (TextView) findViewById(R.id.currently_typing_text);
+//        mChatMessageView = (EditText) findViewById(R.id.bomb_message_view);
 
 
         //------IMAGE STORAGE-------------
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
-        mAdapter = new MessageAdapter(bombmessagesList, this);
-        mbombMessagesList = (RecyclerView) findViewById(R.id.bombmessages_list);
+        mAdapter = new MessageAdapter(bombarchivemessagesList, this);
+        mbombarchivemessagesList = (RecyclerView) findViewById(R.id.bombarchivemessages_list);
 
 
         final LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
 
-        mbombMessagesList.setHasFixedSize(true);
-        mbombMessagesList.setItemViewCacheSize(20);
-        mbombMessagesList.setDrawingCacheEnabled(true);
-        mbombMessagesList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mbombMessagesList.setLayoutManager(mLinearLayout);
-        mbombMessagesList.addOnLayoutChangeListener(new View.OnLayoutChangeListener(){
+        mbombarchivemessagesList.setHasFixedSize(true);
+        mbombarchivemessagesList.setItemViewCacheSize(20);
+        mbombarchivemessagesList.setDrawingCacheEnabled(true);
+        mbombarchivemessagesList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mbombarchivemessagesList.setLayoutManager(mLinearLayout);
+        mbombarchivemessagesList.addOnLayoutChangeListener(new View.OnLayoutChangeListener(){
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom){
-                if (bottom < oldBottom && ((mbombMessagesList.getAdapter().getItemCount() - 1) > 3)){
-                    mbombMessagesList.postDelayed(new Runnable(){
+                if (bottom < oldBottom && ((mbombarchivemessagesList.getAdapter().getItemCount() - 1) > 3)){
+                    mbombarchivemessagesList.postDelayed(new Runnable(){
                         @Override
                         public void run() {
-                            mbombMessagesList.smoothScrollToPosition(
-                                    mbombMessagesList.getAdapter().getItemCount() - 1);
+                            mbombarchivemessagesList.smoothScrollToPosition(
+                                    mbombarchivemessagesList.getAdapter().getItemCount() - 1);
                         }
                     }, 100);
                 }
@@ -181,45 +181,45 @@ public class BombActivity extends AppCompatActivity {
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (count - 1) &&
                                 lastVisiblePosition == (positionStart - 1))){
-                    mbombMessagesList.smoothScrollToPosition(positionStart);
+                    mbombarchivemessagesList.smoothScrollToPosition(positionStart);
                 }
             }
         });
 
-        mbombMessagesList.setAdapter(mAdapter);
+        mbombarchivemessagesList.setAdapter(mAdapter);
 
         loadMessages();
 
-        mChatSendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                sendMessage();
-                mbombMessagesList.smoothScrollToPosition(mbombMessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
-            }
-        });
-
-        mBombToMainBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent toMainIntent = new Intent(BombActivity.this, MainActivity.class);
-                finish();
-                startActivity(toMainIntent);
-            }
-        });
-
-        mChatAddBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-
-                Intent galleryIntent = new Intent();
-                galleryIntent.setType("*/*");
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-
-                startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
-
-            }
-        });
+//        mChatSendBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                sendMessage();
+//                mbombarchivemessagesList.smoothScrollToPosition(mbombarchivemessagesList.getAdapter().getItemCount()); //scrolls to the bottom with new message.
+//            }
+//        });
+//
+//        mBombToMainBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                Intent toMainIntent = new Intent(BombArchive.this, MainActivity.class);
+//                finish();
+//                startActivity(toMainIntent);
+//            }
+//        });
+//
+//        mChatAddBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view){
+//
+//                Intent galleryIntent = new Intent();
+//                galleryIntent.setType("*/*");
+//                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//                startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
+//
+//            }
+//        });
     }
 
     @Override
@@ -358,15 +358,15 @@ public class BombActivity extends AppCompatActivity {
 
                 Messages message = dataSnapshot.getValue(Messages.class);
 
-                bombmessagesList.add(message);
+                bombarchivemessagesList.add(message);
 
                 mAdapter.notifyDataSetChanged();
 
-                mbombMessagesList.postDelayed(new Runnable(){
+                mbombarchivemessagesList.postDelayed(new Runnable(){
                     @Override
                     public void run() {
-                        mbombMessagesList.smoothScrollToPosition(
-                                mbombMessagesList.getAdapter().getItemCount() - 1);
+                        mbombarchivemessagesList.smoothScrollToPosition(
+                                mbombarchivemessagesList.getAdapter().getItemCount() - 1);
                     }
                 }, 100);
             }
@@ -394,74 +394,74 @@ public class BombActivity extends AppCompatActivity {
 
     }
 
-    private void sendMessage() {
+//    private void sendMessage() {
+//
+//        String message = mChatMessageView.getText().toString();
+//
+//        if(!TextUtils.isEmpty(message)){
+//
+//            DatabaseReference user_message_push = mBombRef.child("messages").push();
+//
+//            String push_id = user_message_push.getKey();
+//
+//            Map messageMap = new HashMap();
+//            messageMap.put("message", message);
+//            messageMap.put("type", "text");
+//            messageMap.put("timestamp", ServerValue.TIMESTAMP);
+//            messageMap.put("from", mCurrentUserId);
+//
+//            Map messageUserMap = new HashMap();
+//            messageUserMap.put("messages" + "/" + push_id, messageMap);
+//
+//            mChatMessageView.setText("");
+//
+//            mBombRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+//                @Override
+//                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//
+//                    if(databaseError != null){
+//
+//                        Log.d("CHAT_LOG",databaseError.getMessage().toString());
+//
+//                    }
+//
+//                }
+//            });
+//        }
+//    }
 
-        String message = mChatMessageView.getText().toString();
-
-        if(!TextUtils.isEmpty(message)){
-
-            DatabaseReference user_message_push = mBombRef.child("messages").push();
-
-            String push_id = user_message_push.getKey();
-
-            Map messageMap = new HashMap();
-            messageMap.put("message", message);
-            messageMap.put("type", "text");
-            messageMap.put("timestamp", ServerValue.TIMESTAMP);
-            messageMap.put("from", mCurrentUserId);
-
-            Map messageUserMap = new HashMap();
-            messageUserMap.put("messages" + "/" + push_id, messageMap);
-
-            mChatMessageView.setText("");
-
-            mBombRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-                    if(databaseError != null){
-
-                        Log.d("CHAT_LOG",databaseError.getMessage().toString());
-
-                    }
-
-                }
-            });
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.bomb_menu, menu);
-
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-
-        if(item.getItemId() == R.id.add_user_to_bomb_menu){
-
-            Intent startBombChat = new Intent(BombActivity.this, GroupUserSearch.class );
-            startBombChat.putExtra("bombID", mBombID);
-            startActivity(startBombChat);
-        }
-
-        if(item.getItemId() == R.id.add_video_to_bomb_menu){
-
-            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-            takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-
-            if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-            }
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//
+//        getMenuInflater().inflate(R.menu.bomb_menu, menu);
+//
+//        return true;
+//    }
+//
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        super.onOptionsItemSelected(item);
+//
+//        if(item.getItemId() == R.id.add_user_to_bomb_menu){
+//
+//            Intent startBombChat = new Intent(BombArchive.this, GroupUserSearch.class );
+//            startBombChat.putExtra("bombID", mBombID);
+//            startActivity(startBombChat);
+//        }
+//
+//        if(item.getItemId() == R.id.add_video_to_bomb_menu){
+//
+//            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//            takeVideoIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//
+//
+//            if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+//                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+//            }
+//        }
+//
+//        return true;
+//    }
 }

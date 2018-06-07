@@ -21,6 +21,10 @@
     <item
         android:id="@+id/main_create_bomb_btn"
         android:title="Create Timed Chat"
+        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"></item>
+    <item
+        android:id="@+id/main_bombarchive_menu_btn"
+        android:title="View Archived Bombs"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider" />
     <item
         android:id="@+id/main_logout_btn"

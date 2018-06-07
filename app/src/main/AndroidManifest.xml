@@ -47,7 +47,9 @@
         <activity android:name=".TopicUserSearch" />
         <activity android:name=".TopicProfile" />
         <activity android:name=".BombCreationActivity" />
-        <activity android:name=".BombActivity"></activity>
+        <activity android:name=".BombActivity" />
+        <activity android:name=".BombArchive" />
+        <activity android:name=".BombArchiveList"></activity>
     </application>
 
 </manifest>
