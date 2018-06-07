@@ -129,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(groupCreationIntent);
 //        }
 
+        if(item.getItemId() == R.id.main_create_topic_btn){
+            Intent startTopicChat = new Intent(MainActivity.this, TopicCreationActivity.class );
+            startActivity(startTopicChat);
+        }
+
         if(item.getItemId() == R.id.main_settings_btn){
 
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);

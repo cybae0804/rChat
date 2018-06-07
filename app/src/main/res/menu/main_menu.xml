@@ -16,6 +16,9 @@
         android:title="@string/create_group" />
 
     <item
+        android:id="@+id/main_create_topic_btn"
+        android:title="@string/create_topic" />
+    <item
         android:id="@+id/main_logout_btn"
         android:title="@string/log_out" />
 

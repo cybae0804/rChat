@@ -11,15 +11,6 @@
         android:id="@+id/chat_app__bar"
         layout="@layout/app_bar_layout" />
 
-    <ImageButton
-        android:id="@+id/group_to_main_btn"
-        android:layout_width="54dp"
-        android:layout_height="53dp"
-        android:background="@color/colorPrimaryDark"
-        android:paddingLeft="10dp"
-        android:paddingTop="15dp"
-        app:srcCompat="@drawable/custom_back_icon" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messages_list"
         android:layout_width="match_parent"
