@@ -12,8 +12,10 @@ package com.example.james.rchat;
         import android.util.Pair;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.CalendarView;
         import android.widget.EditText;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
@@ -42,6 +44,13 @@ public class BombCreationActivity extends AppCompatActivity {
     private String userName;
     private String userID;
 
+    private CalendarView mStartView;
+    private CalendarView mEndView;
+    private long startDate;
+    private long endDate;
+    private Button setStartDate;
+    private Button setEndDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +75,25 @@ public class BombCreationActivity extends AppCompatActivity {
             }
         });
 
+        mStartView = (CalendarView) findViewById(R.id.startCalendar);
+        mEndView = (CalendarView) findViewById(R.id.endCalendar);
+        setStartDate = (Button) findViewById(R.id.startdate);
+        setEndDate = (Button) findViewById(R.id.enddate);
+
+        setStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                openStart();
+            }
+        });
+
+        setEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                openEnd();
+            }
+        });
+
         userName = "";
         userID = mAuth.getCurrentUser().getUid();
 
@@ -81,35 +109,53 @@ public class BombCreationActivity extends AppCompatActivity {
         });
     }
 
+    private void openStart(){
+        mStartView.setVisibility(View.VISIBLE);
+        mEndView.setVisibility(View.GONE);
+    }
+    private void openEnd(){
+        mStartView.setVisibility(View.GONE);
+        mEndView.setVisibility(View.VISIBLE);
+    }
     private void register_bomb(String bomb_name){
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userRef = mDatabaseRef.child("Bombs" + mCurrentUserId);
-        DatabaseReference bombRef = userRef.push();
+        startDate = mStartView.getDate();
+        endDate = mEndView.getDate();
+        if (startDate < endDate) {
+            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference userRef = mDatabaseRef.child("Bombs" + mCurrentUserId);
+            DatabaseReference bombRef = userRef.push();
 
-        String key = mDatabaseRef.child("Bombs").child(userID).push().getKey();
-        mDatabaseRef.child("Users").child(userID).child("Bombs").child(key).child("bombID").setValue(key);
-        mDatabaseRef.child("Users").child(userID).child("Bombs").child(key).child("bombName").setValue(bomb_name);
-        mDatabaseRef.child("BombData").child(key).child("bombName").setValue(bomb_name);
-        mDatabaseRef.child("BombData").child(key).child("Recipients").child(userID).setValue(userName);
-
-        //String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID
-
-        //Pair recipeients = new Pair(userRef.toString(), userName);
-        //mDatabaseRef.child("Groups").child(userRef.toString()).child("Recipients").setValue(recipeients);
+            String key = mDatabaseRef.child("Bombs").child(userID).push().getKey();
+            mDatabaseRef.child("Users").child(userID).child("Bombs").child(key).child("bombID").setValue(key);
+            mDatabaseRef.child("Users").child(userID).child("Bombs").child(key).child("bombName").setValue(bomb_name);
+            mDatabaseRef.child("BombData").child(key).child("bombName").setValue(bomb_name);
+            mDatabaseRef.child("BombData").child(key).child("Recipients").child(userID).setValue(userName);
+            mDatabaseRef.child("BombData").child(key).child("start").setValue(startDate);
+            mDatabaseRef.child("BombData").child(key).child("end").setValue(endDate);
 
 
-        //mDatabaseRef.setValue(dataMap);//.addOnCompleteListener(new OnCompleteListener<Void>() {
+            //String path = "Groups/" + mCurrentUserId + "/" + uniqueGroupID; //path to group ID
+
+            //Pair recipeients = new Pair(userRef.toString(), userName);
+            //mDatabaseRef.child("Groups").child(userRef.toString()).child("Recipients").setValue(recipeients);
+
+
+            //mDatabaseRef.setValue(dataMap);//.addOnCompleteListener(new OnCompleteListener<Void>() {
 //            @Override
 //            public void onComplete(@NonNull Task<Void> task) {
 //                if (task.isSuccessful()){
 //
-        // Closes registration dialogue
-        Intent mainIntent = new Intent(BombCreationActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
-        startActivity(mainIntent);
-        finish();
+            // Closes registration dialogue
+            Intent mainIntent = new Intent(BombCreationActivity.this, MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Makes sure back button doesn't lead you back to Start Page
+            startActivity(mainIntent);
+            finish();
 //                }?
 //            }
 //        });
+        } else {
+            Toast.makeText(BombCreationActivity.this, "Start Date has to be earlier than the End Date!",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
