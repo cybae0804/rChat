@@ -33,6 +33,7 @@ public class GroupsFragment extends Fragment {
 
     private DatabaseReference mGroupsIDDatabase;
     private DatabaseReference mGroupsDataDatabase;
+    private DatabaseReference mListUnArchived;
 
     private FirebaseAuth mAuth;
 
@@ -60,6 +61,8 @@ public class GroupsFragment extends Fragment {
         mGroupsList.setHasFixedSize(true);
         mGroupsList.setLayoutManager(linLayout);
 
+        mGroupsIDDatabase.keepSynced(true);
+
         return mMainView;
     }
 
@@ -70,9 +73,7 @@ public class GroupsFragment extends Fragment {
     }
 
     public void groupsDisplay(){
-        Query groupsQuery = mGroupsIDDatabase;    //TODO modify so only group thay user is in can be viewed
-
-
+        Query groupsQuery = mGroupsIDDatabase;
 
         FirebaseRecyclerOptions<Groups> options =
                 new FirebaseRecyclerOptions.Builder<Groups>()
@@ -93,6 +94,9 @@ public class GroupsFragment extends Fragment {
                 groupsViewHolder.setGroupName(model.groupName);
 
                 final String group_id = getRef(position).getKey();
+
+
+
 
                 mGroupsIDDatabase.addValueEventListener(new ValueEventListener() {
                     @Override

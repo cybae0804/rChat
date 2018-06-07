@@ -146,14 +146,12 @@ public class ChatsFragment extends Fragment {
                             final String userName = dataSnapshot.child("name").getValue().toString();
                             String userThumb = dataSnapshot.child("image").getValue().toString();
 
-//                            if (dataSnapshot.hasChild("online")) {
-//                       		    final String userName = dataSnapshot.child("name").getValue().toString();
-//                        	    String userThumb = dataSnapshot.child("image").getValue().toString();
-//
-//                                String userOnline = dataSnapshot.child("online").getValue().toString();
-//                                conversationViewHolder.setUserOnline(userOnline);
-//
-//                            }
+                            if (dataSnapshot.hasChild("online")) {
+
+                                String userOnline = dataSnapshot.child("online").getValue().toString();
+                                conversationViewHolder.setUserOnline(userOnline);
+
+                            }
 
                             conversationViewHolder.setName(userName);
                             conversationViewHolder.setUserImage(userThumb, getContext());
